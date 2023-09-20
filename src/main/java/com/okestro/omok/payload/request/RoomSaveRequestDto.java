@@ -25,9 +25,10 @@ public class RoomSaveRequestDto {
     private String restaurantLocation;
     private String restaurantCategory;
 
-    @NotBlank(message = "시간 또는 분을 필수로 입력해주세요")
     private LocalDateTime lunchTime;
 
     @Min(value = 1, message = "참가 인원은 1명 이상이어야 합니다")
     private Integer limitedAttendees;
+
+    private Long userId;
 }
