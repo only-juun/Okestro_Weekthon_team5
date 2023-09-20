@@ -30,7 +30,7 @@ public class RoomService {
                 .orElseThrow(() -> new RuntimeException("USER NOT FOUND"));
 
         // User에 Room 할당
-        user.assignRoom(room);
+        user.setRoom(room);
 
         // User 저장
         userRepository.save(user);
