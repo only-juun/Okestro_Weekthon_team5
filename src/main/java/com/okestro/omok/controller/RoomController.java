@@ -3,8 +3,7 @@ package com.okestro.omok.controller;
 
 import com.okestro.omok.domain.Room;
 import com.okestro.omok.payload.request.RoomSaveRequestDto;
-import com.okestro.omok.repository.RoomRepository;
-import com.okestro.omok.repository.UserRepository;
+import com.okestro.omok.payload.response.RoomDetailsResponse;
 import com.okestro.omok.service.RoomService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -19,8 +18,6 @@ import org.springframework.web.bind.annotation.*;
 public class RoomController {
 
     private final RoomService roomService;
-    private final RoomRepository roomRepository;
-    private final UserRepository userRepository;
 
     /**
      * 방 등록
@@ -58,6 +55,15 @@ public class RoomController {
     @GetMapping("/{userId}")
     public ResponseEntity getRoomDetail(@PathVariable("userId") Long userId) {
         return ResponseEntity.ok(roomService.getRoomInfo(userId));
+    }
+
+
+    @GetMapping("/{roomId}/details/rooms")
+    public ResponseEntity<RoomDetailsResponse> findRoomDetails(
+            @PathVariable("roomId") Long roomId) {
+
+        return ResponseEntity
+                .ok(roomService.findRoomDetails(roomId));
     }
 }
 

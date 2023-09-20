@@ -3,8 +3,11 @@ package com.okestro.omok.service;
 
 import com.okestro.omok.domain.Room;
 import com.okestro.omok.domain.User;
+import com.okestro.omok.exception.ClientException;
+import com.okestro.omok.exception.ErrorCode;
 import com.okestro.omok.payload.dto.AttendeeInfoDto;
 import com.okestro.omok.payload.dto.RoomInfoDto;
+import com.okestro.omok.payload.response.RoomDetailsResponse;
 import com.okestro.omok.repository.RoomRepository;
 import com.okestro.omok.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -50,4 +53,17 @@ public class RoomService {
 
         return new RoomInfoDto(room);
     }
+
+    public RoomDetailsResponse findRoomDetails(Long roomId) {
+
+        Room room = findRoom(roomId);
+
+        return RoomDetailsResponse.toEntity(room);
+    }
+
+    private Room findRoom(Long roomId) {
+        return roomRepository.findById(roomId)
+                .orElseThrow(() -> new ClientException(ErrorCode.NOT_FOUND_ROOM));
+    }
+
 }
