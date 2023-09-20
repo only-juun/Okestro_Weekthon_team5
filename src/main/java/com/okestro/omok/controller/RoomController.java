@@ -2,22 +2,15 @@ package com.okestro.omok.controller;
 
 
 import com.okestro.omok.domain.Room;
-import com.okestro.omok.domain.User;
 import com.okestro.omok.payload.request.RoomSaveRequestDto;
-//import com.okestro.omok.payload.response.UserResponseDto;
-import com.okestro.omok.payload.response.UserResponseDto;
 import com.okestro.omok.repository.RoomRepository;
 import com.okestro.omok.repository.UserRepository;
 import com.okestro.omok.service.RoomService;
 import jakarta.validation.Valid;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.Optional;
 
 
 @RestController
