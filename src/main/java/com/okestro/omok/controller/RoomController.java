@@ -2,12 +2,22 @@ package com.okestro.omok.controller;
 
 
 import com.okestro.omok.domain.Room;
+import com.okestro.omok.domain.User;
 import com.okestro.omok.payload.request.RoomSaveRequestDto;
+//import com.okestro.omok.payload.response.UserResponseDto;
+import com.okestro.omok.payload.response.UserResponseDto;
+import com.okestro.omok.repository.RoomRepository;
+import com.okestro.omok.repository.UserRepository;
 import com.okestro.omok.service.RoomService;
 import jakarta.validation.Valid;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
 
 
 @RestController
@@ -16,11 +26,13 @@ import org.springframework.web.bind.annotation.*;
 public class RoomController {
 
     private final RoomService roomService;
+    private final RoomRepository roomRepository;
+    private final UserRepository userRepository;
 
     /**
      * 방 등록
      */
-    @PostMapping("/")
+    @PostMapping("")
     @ResponseStatus(HttpStatus.CREATED)
     public void register(@Valid @RequestBody RoomSaveRequestDto roomSaveRequestDto) {
         Room room = Room.builder()
@@ -33,8 +45,19 @@ public class RoomController {
                 .limitedAttendees(roomSaveRequestDto.getLimitedAttendees())
                 .build();
 
-        roomService.register(room);
+        Long userId = roomSaveRequestDto.getUserId();
+
+        roomService.register(room, userId);
     }
+
+    /**
+     * 방 참가자 목록 조회: 사용자 정보 필요
+     */
+    @GetMapping("/{roomId}/users")
+    public ResponseEntity getUserList(@PathVariable("roomId") Long roomId) {
+        return ResponseEntity.ok(roomService.getUserInfo(roomId));
+    }
+
 }
 
 
