@@ -51,6 +51,14 @@ public class RoomController {
         return ResponseEntity.ok(roomService.getUserInfo(roomId));
     }
 
+
+    /**
+     * 참가 중인 방 상세 조회
+     */
+    @GetMapping("/{userId}")
+    public ResponseEntity getRoomDetail(@PathVariable("userId") Long userId) {
+        return ResponseEntity.ok(roomService.getRoomInfo(userId));
+    }
 }
 
 

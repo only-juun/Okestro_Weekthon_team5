@@ -4,6 +4,7 @@ package com.okestro.omok.service;
 import com.okestro.omok.domain.Room;
 import com.okestro.omok.domain.User;
 import com.okestro.omok.payload.dto.AttendeeInfoDto;
+import com.okestro.omok.payload.dto.RoomInfoDto;
 import com.okestro.omok.repository.RoomRepository;
 import com.okestro.omok.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -38,5 +39,15 @@ public class RoomService {
     public AttendeeInfoDto getUserInfo(Long roomId) {
         return new AttendeeInfoDto(roomRepository.findWithUserById(roomId)
                 .orElseThrow(() -> new NoSuchElementException("ROOM NOT FOUND")));
+    }
+
+    public RoomInfoDto getRoomInfo(Long userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("User not found with id: " + userId));
+
+        Room room = roomRepository.findById(user.getRoom().getId())
+                .orElseThrow(() -> new IllegalArgumentException("Room not found with id: " + user.getRoom().getId()));
+
+        return new RoomInfoDto(room);
     }
 }

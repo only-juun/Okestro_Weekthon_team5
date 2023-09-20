@@ -11,4 +11,6 @@ import java.util.Optional;
 public interface UserRepository extends JpaRepository<User,Long>, UserRepositoryCustom {
 
     Optional<List<User>> findAllByRoomId(Long roomId);
+
+    Optional<User> findById(Long id);
 }
