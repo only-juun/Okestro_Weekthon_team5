@@ -24,6 +24,9 @@ public class User extends BaseTime{
 
     private String image;
 
+    private String provider;
+    private String providerId;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "room_id")
     private Room room;
@@ -37,8 +40,7 @@ public class User extends BaseTime{
         this.room = room;
     }
 
-    public void assignRoom(Room room) {
+    public void setRoom(Room room) {
         this.room = room;
-//        room.getUsers().add(this);
     }
 }
