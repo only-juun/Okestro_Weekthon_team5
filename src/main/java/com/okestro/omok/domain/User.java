@@ -37,8 +37,8 @@ public class User extends BaseTime{
         this.room = room;
     }
 
-    public void assignRoom(Room room) {
+    public void setRoom(Room room) {
         this.room = room;
-//        room.getUsers().add(this);
     }
+
 }
