@@ -14,4 +14,6 @@ public interface RoomRepository extends JpaRepository<Room, Long>, RoomRepositor
 
     @EntityGraph(attributePaths = {"users"})
     Optional<Room> findWithUserById(Long roomId);
+
+    Optional<Room> findById(Long id);
 }
