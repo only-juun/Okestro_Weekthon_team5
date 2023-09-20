@@ -1,36 +1,3 @@
 spring:
-  datasource:
-    url: jdbc:mysql://34.64.121.32:3306/omok?useSSL=false&allowPublicKeyRetrieval=true
-    username: okestro
-    password: okestro2713
-    driver-class-name: com.mysql.cj.jdbc.Driver
-  jpa:
-    hibernate:
-      ddl-auto: update
-    show-sql: true
-    open-in-view: false
-    properties:
-      hibernate:
-        format_sql: true
-        globally_quoted_identifiers: true
-        globally_quoted_identifiers_skip_column_definitions: true
-
-oauth2:
-  google:
-    client-id: 872612778266-8r4b1rt3nuuf6v4jcet2sr4abstkllrd.apps.googleusercontent.com
-    client-secret: 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
-    redirect-uri: http://localhost:8080/login/oauth2/code/google
-    token-uri: https://oauth2.googleapis.com/token
-    resource-uri: https://www.googleapis.com/oauth2/v2/userinfo
-    
-#spring:
-#  security:
-#    oauth2:
-#      client:
-#        registration:
-#          google:
-#            client-id: 872612778266-8r4b1rt3nuuf6v4jcet2sr4abstkllrd.apps.googleusercontent.com
-#            client-secret: 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
-#            scope:
-#              - email
-#              - profile
+  profiles:
+    active: dev

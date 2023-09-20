@@ -43,4 +43,5 @@ public class User extends BaseTime{
     public void setRoom(Room room) {
         this.room = room;
     }
+
 }
