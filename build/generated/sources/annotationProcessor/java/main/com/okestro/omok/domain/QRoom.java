@@ -40,7 +40,11 @@ public class QRoom extends EntityPathBase<Room> {
 
     public final StringPath restaurantCategory = createString("restaurantCategory");
 
+    public final NumberPath<Double> restaurantLatitude = createNumber("restaurantLatitude", Double.class);
+
     public final StringPath restaurantLocation = createString("restaurantLocation");
+
+    public final NumberPath<Double> restaurantLongitude = createNumber("restaurantLongitude", Double.class);
 
     public final StringPath restaurantName = createString("restaurantName");
 
