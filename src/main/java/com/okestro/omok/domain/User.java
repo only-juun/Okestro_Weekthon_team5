@@ -1,5 +1,6 @@
 package com.okestro.omok.domain;
 
+import com.okestro.omok.payload.request.CreateUserRequest;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -38,6 +39,24 @@ public class User extends BaseTime{
         this.email = email;
         this.image = image;
         this.room = room;
+    }
+
+    public static User toEntity(CreateUserRequest createUserRequest) {
+        return User.builder()
+                .name(createUserRequest.getName())
+                .email(createUserRequest.getEmail())
+                .image(createUserRequest.getImage())
+                .build();
+    }
+
+    public static User alreadyJoinUser(User user) {
+        return User.builder()
+                .id(user.getId())
+                .name(user.getName())
+                .email(user.getEmail())
+                .image(user.getImage())
+                .build();
+
     }
 
     public void setRoom(Room room) {
