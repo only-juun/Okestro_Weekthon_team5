@@ -10,7 +10,7 @@ import java.util.Optional;
 public interface RoomRepository extends JpaRepository<Room, Long>, RoomRepositoryCustom {
 
     @EntityGraph(attributePaths = {"users"})
-    Optional<Room> findWithUserById(Long roomId);
+    Optional<Room> findWithUserByIdAndDeletedAtIsNull(Long roomId);
 
-    Optional<Room> findById(Long id);
+    Optional<Room> findByIdAndDeletedAtIsNull(Long id);
 }

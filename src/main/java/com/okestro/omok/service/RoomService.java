@@ -45,7 +45,7 @@ public class RoomService {
     }
 
     public AttendeeInfoDto getUserInfo(Long roomId) {
-        return new AttendeeInfoDto(roomRepository.findWithUserById(roomId)
+        return new AttendeeInfoDto(roomRepository.findWithUserByIdAndDeletedAtIsNull(roomId)
                 .orElseThrow(() -> new NoSuchElementException("ROOM NOT FOUND")));
     }
 
@@ -53,7 +53,7 @@ public class RoomService {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("User not found with id: " + userId));
 
-        Room room = roomRepository.findById(user.getRoom().getId())
+        Room room = roomRepository.findByIdAndDeletedAtIsNull(user.getRoom().getId())
                 .orElseThrow(() -> new IllegalArgumentException("Room not found with id: " + user.getRoom().getId()));
 
         return new RoomInfoDto(room);
@@ -94,7 +94,7 @@ public class RoomService {
     }
 
     private Room findRoom(Long roomId) {
-        return roomRepository.findById(roomId)
+        return roomRepository.findByIdAndDeletedAtIsNull(roomId)
                 .orElseThrow(() -> new ClientException(ErrorCode.NOT_FOUND_ROOM));
     }
 
