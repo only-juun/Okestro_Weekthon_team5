@@ -19,19 +19,16 @@ public class RoomDetailsResponse {
 
     private String restaurantLocation;
 
-    private String lunchTimeHour;
-
-    private String lunchTimeMinute;
+    private String lunchTime;
 
     @Builder
-    private RoomDetailsResponse(String title, String description, String restaurantCategory, String restaurantName, String restaurantLocation, String lunchTimeHour, String lunchTimeMinute) {
+    private RoomDetailsResponse(String title, String description, String restaurantCategory, String restaurantName, String restaurantLocation, String lunchTime) {
         this.title = title;
         this.description = description;
         this.restaurantCategory = restaurantCategory;
         this.restaurantName = restaurantName;
         this.restaurantLocation = restaurantLocation;
-        this.lunchTimeHour = lunchTimeHour;
-        this.lunchTimeMinute = lunchTimeMinute;
+        this.lunchTime = lunchTime;
     }
 
     public static RoomDetailsResponse toEntity(Room room) {
@@ -41,8 +38,7 @@ public class RoomDetailsResponse {
                 .restaurantCategory(room.getRestaurantCategory())
                 .restaurantName(room.getRestaurantName())
                 .restaurantLocation(room.getRestaurantLocation())
-                .lunchTimeHour(String.valueOf(room.getLunchTime().getHour()))
-                .lunchTimeMinute(String.valueOf(room.getLunchTime().getMinute()))
+                .lunchTime(String.valueOf(room.getLunchTime()))
                 .build();
     }
 }
