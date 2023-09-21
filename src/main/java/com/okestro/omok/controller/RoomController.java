@@ -2,14 +2,21 @@ package com.okestro.omok.controller;
 
 
 import com.okestro.omok.domain.Room;
+import com.okestro.omok.payload.dto.RoomDetailsWithUsersDto;
 import com.okestro.omok.payload.request.RoomSaveRequestDto;
 import com.okestro.omok.payload.response.RoomDetailsResponse;
+import com.okestro.omok.payload.response.RoomDetailsWithUsersResponse;
 import com.okestro.omok.service.RoomService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @RestController
@@ -58,13 +65,19 @@ public class RoomController {
     }
 
 
-    @GetMapping("/{roomId}/details/rooms")
+    @GetMapping("/{roomId}/details")
     public ResponseEntity<RoomDetailsResponse> findRoomDetails(
             @PathVariable("roomId") Long roomId) {
 
         return ResponseEntity
                 .ok(roomService.findRoomDetails(roomId));
     }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<RoomDetailsWithUsersResponse>> findAllRoom(
+            @PageableDefault(size = 10, sort = "createAt", direction = Sort.Direction.DESC) Pageable pageable) {
+
+        return ResponseEntity
+                .ok(roomService.findAllRooms(pageable));
+    }
 }
-
-

@@ -6,7 +6,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
     show-sql: true
     open-in-view: false
     properties:
@@ -17,8 +17,8 @@ spring:
 
 springdoc:
   swagger-ui:
-    path: swagger-ui.html
+    path: /swagger-ui.html
+    operations-sorter: method
     groups-order: DESC
-    operationsSorter: method
-#    disable-swagger-default-url: true
-#    display-request-duration: true
+  api-docs:
+    enabled: true

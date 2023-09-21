@@ -25,10 +25,6 @@ public class UserService {
 
         User user = findUser(userId);
 
-        if(isUserParticipation(user.getRoom())) {
-            throw new ClientException(ErrorCode.ALREADY_PARTICIPATION_ROOM);
-        }
-
         Room room = findRoom(roomId);
 
         List<User> rooms = findUsersWithRoom(room);
@@ -47,10 +43,6 @@ public class UserService {
 
     private List<User> findUsersWithRoom(Room room) {
         return userRepository.findByRoom(room);
-    }
-
-    private boolean isUserParticipation(Room room) {
-        return room != null;
     }
 
     private Room findRoom(Long roomId) {
