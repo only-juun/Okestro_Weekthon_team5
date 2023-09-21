@@ -17,7 +17,9 @@ public class RoomDetailsWithUsersResponse {
 
     private String restaurantCategory;
 
-    private LocalDateTime lunchTime;
+    private Integer lunchTimeHour;
+
+    private Integer lunchTimeMinute;
 
     private String title;
 
@@ -30,10 +32,11 @@ public class RoomDetailsWithUsersResponse {
     private List<UserDetailsDto> userDetails;
 
     @Builder
-    private RoomDetailsWithUsersResponse(Long roomId, String restaurantCategory, LocalDateTime lunchTime, String title, String restaurantName, String restaurantLocation, Integer limitedAttendees, List<UserDetailsDto> userDetails) {
+    private RoomDetailsWithUsersResponse(Long roomId, String restaurantCategory, Integer lunchTimeHour, Integer lunchTimeMinute, String title, String restaurantName, String restaurantLocation, Integer limitedAttendees, List<UserDetailsDto> userDetails) {
         this.roomId = roomId;
         this.restaurantCategory = restaurantCategory;
-        this.lunchTime = lunchTime;
+        this.lunchTimeHour = lunchTimeHour;
+        this.lunchTimeMinute = lunchTimeMinute;
         this.title = title;
         this.restaurantName = restaurantName;
         this.restaurantLocation = restaurantLocation;
@@ -45,7 +48,8 @@ public class RoomDetailsWithUsersResponse {
         return RoomDetailsWithUsersResponse.builder()
                 .roomId(roomDetailsWithUsers.getRoomId())
                 .restaurantCategory(roomDetailsWithUsers.getRestaurantCategory())
-                .lunchTime(roomDetailsWithUsers.getLunchTime())
+                .lunchTimeHour(roomDetailsWithUsers.getLunchTime().getHour())
+                .lunchTimeMinute(roomDetailsWithUsers.getLunchTime().getMinute())
                 .title(roomDetailsWithUsers.getTitle())
                 .restaurantName(roomDetailsWithUsers.getRestaurantName())
                 .restaurantLocation(roomDetailsWithUsers.getRestaurantLocation())
