@@ -11,6 +11,7 @@ import com.okestro.omok.payload.dto.RoomInfoDto;
 import com.okestro.omok.payload.dto.UserDetailsDto;
 import com.okestro.omok.payload.response.RoomDetailsResponse;
 import com.okestro.omok.payload.response.RoomDetailsWithUsersResponse;
+import com.okestro.omok.payload.response.RoomIdResponse;
 import com.okestro.omok.repository.RoomRepository;
 import com.okestro.omok.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -30,7 +31,7 @@ public class RoomService {
     private final UserRepository userRepository;
 
     @Transactional
-    public void register(Room room, Long userId) {
+    public RoomIdResponse register(Room room, Long userId) {
         // Room 등록
         roomRepository.save(room);
 
@@ -42,6 +43,8 @@ public class RoomService {
 
         // User 저장
         userRepository.save(user);
+
+        return RoomIdResponse.toEntity(room);
     }
 
     public AttendeeInfoDto getUserInfo(Long roomId) {

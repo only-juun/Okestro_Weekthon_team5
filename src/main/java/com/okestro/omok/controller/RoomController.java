@@ -6,6 +6,7 @@ import com.okestro.omok.payload.dto.RoomDetailsWithUsersDto;
 import com.okestro.omok.payload.request.RoomSaveRequestDto;
 import com.okestro.omok.payload.response.RoomDetailsResponse;
 import com.okestro.omok.payload.response.RoomDetailsWithUsersResponse;
+import com.okestro.omok.payload.response.RoomIdResponse;
 import com.okestro.omok.service.RoomService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -29,11 +30,11 @@ public class RoomController {
     /**
      * 방 등록
      */
-    @PostMapping("")
-    @ResponseStatus(HttpStatus.CREATED)
-    public void register(
-            @RequestHeader("X-USER-TOKEN") Long userToken,
+    @PostMapping
+    public ResponseEntity<RoomIdResponse> register(
+            @RequestHeader("X-USER-TOKEN") String userToken,
             @Valid @RequestBody RoomSaveRequestDto roomSaveRequestDto) {
+
         Room room = Room.builder()
                 .title(roomSaveRequestDto.getTitle())
                 .description(roomSaveRequestDto.getDescription())
@@ -48,7 +49,10 @@ public class RoomController {
 
         Long userId = roomSaveRequestDto.getUserId();
 
-        roomService.register(room, userId);
+        return ResponseEntity
+                .ok(roomService.register(room, userId));
+
+
     }
 
     /**
@@ -56,7 +60,7 @@ public class RoomController {
      */
     @GetMapping("/{roomId}/users")
     public ResponseEntity getUserList(
-            @RequestHeader("X-USER-TOKEN") Long userToken,
+            @RequestHeader("X-USER-TOKEN") String userToken,
             @PathVariable("roomId") Long roomId) {
         return ResponseEntity.ok(roomService.getUserInfo(roomId));
     }
@@ -67,7 +71,7 @@ public class RoomController {
      */
     @GetMapping("/{userId}")
     public ResponseEntity getRoomDetail(
-            @RequestHeader("X-USER-TOKEN") Long userToken,
+            @RequestHeader("X-USER-TOKEN") String userToken,
             @PathVariable("userId") Long userId) {
         return ResponseEntity.ok(roomService.getRoomInfo(userId));
     }
@@ -75,7 +79,7 @@ public class RoomController {
 
     @GetMapping("/{roomId}/details")
     public ResponseEntity<RoomDetailsResponse> findRoomDetails(
-            @RequestHeader("X-USER-TOKEN") Long userToken,
+            @RequestHeader("X-USER-TOKEN") String userToken,
             @PathVariable("roomId") Long roomId) {
 
         return ResponseEntity
@@ -84,7 +88,7 @@ public class RoomController {
 
     @GetMapping("/all")
     public ResponseEntity<List<RoomDetailsWithUsersResponse>> findAllRoom(
-            @RequestHeader("X-USER-TOKEN") Long userToken,
+            @RequestHeader("X-USER-TOKEN") String userToken,
             @PageableDefault(size = 10, sort = "createAt", direction = Sort.Direction.DESC) Pageable pageable) {
 
         return ResponseEntity
