@@ -40,6 +40,8 @@ public class QUser extends EntityPathBase<User> {
 
     public final QRoom room;
 
+    public final StringPath token = createString("token");
+
     public QUser(String variable) {
         this(User.class, forVariable(variable), INITS);
     }

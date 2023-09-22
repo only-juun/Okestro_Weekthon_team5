@@ -27,7 +27,7 @@ public class UserService {
 
 
     @Transactional
-    public UserDetailsResponse createUser(CreateUserRequest createUserRequest) {
+    public UserDetailsResponse createUser(CreateUserRequest createUserRequest, String userToken) {
         isValidEmail(createUserRequest.getEmail());
 
         Optional<User> validUser = findValidEmailUser(createUserRequest.getEmail());
@@ -37,7 +37,7 @@ public class UserService {
             return UserDetailsResponse.toEntity(user);
         }
 
-        User user = User.toEntity(createUserRequest);
+        User user = User.toEntity(createUserRequest,userToken);
 
         User saveUser = userRepository.save(user);
 
