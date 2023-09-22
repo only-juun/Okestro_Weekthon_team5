@@ -41,12 +41,11 @@ public class User extends BaseTime{
         this.token = token;
     }
 
-    public static User toEntity(CreateUserRequest createUserRequest, String userToken) {
+    public static User toEntity(CreateUserRequest createUserRequest) {
         return User.builder()
                 .name(createUserRequest.getName())
                 .email(createUserRequest.getEmail())
                 .image(createUserRequest.getImage())
-                .token(userToken)
                 .build();
     }
 

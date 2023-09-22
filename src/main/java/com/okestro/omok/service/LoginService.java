@@ -60,7 +60,7 @@ public class LoginService {
             return UserDetailsResponse.toEntity(user);
         }
 
-        User user = User.toEntity(createUserRequest,code);
+        User user = User.toEntity(createUserRequest);
 
         User saveUser = userRepository.save(user);
 

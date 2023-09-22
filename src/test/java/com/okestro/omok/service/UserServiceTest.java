@@ -113,4 +113,6 @@ class UserServiceTest {
         verify(userRepository, Mockito.times(1)).findByRoom(room);
         verify(userRepository, Mockito.times(1)).findById(userId);
     }
+
+
 }

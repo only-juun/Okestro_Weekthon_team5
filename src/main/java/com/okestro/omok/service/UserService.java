@@ -8,6 +8,7 @@ import com.okestro.omok.payload.request.CreateUserRequest;
 import com.okestro.omok.payload.response.UserDetailsResponse;
 import com.okestro.omok.repository.RoomRepository;
 import com.okestro.omok.repository.UserRepository;
+import com.okestro.omok.util.EmailValidationUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,8 +28,8 @@ public class UserService {
 
 
     @Transactional
-    public UserDetailsResponse createUser(CreateUserRequest createUserRequest, String userToken) {
-        isValidEmail(createUserRequest.getEmail());
+    public UserDetailsResponse createUser(CreateUserRequest createUserRequest, Long userId) {
+        EmailValidationUtil.validationEmail(createUserRequest.getEmail());
 
         Optional<User> validUser = findValidEmailUser(createUserRequest.getEmail());
 
@@ -37,7 +38,7 @@ public class UserService {
             return UserDetailsResponse.toEntity(user);
         }
 
-        User user = User.toEntity(createUserRequest,userToken);
+        User user = User.toEntity(createUserRequest);
 
         User saveUser = userRepository.save(user);
 

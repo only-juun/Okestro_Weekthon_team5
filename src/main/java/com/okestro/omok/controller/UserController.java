@@ -19,16 +19,16 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity<UserDetailsResponse> createUser(
-            @RequestHeader("X-USER-TOKEN") String userToken,
+            @RequestHeader("USER-ID") Long userId,
             @RequestBody @Valid CreateUserRequest createUserRequest) {
 
             return ResponseEntity
-                    .ok(userService.createUser(createUserRequest,userToken));
+                    .ok(userService.createUser(createUserRequest,userId));
     }
 
     @PatchMapping("/{roomId}/participation")
     public ResponseEntity<Object> participationRoom(
-            @RequestHeader("X-USER-TOKEN") Long userId,
+            @RequestHeader("USER-ID") Long userId,
             @PathVariable("roomId") Long roomId) {
 
         userService.participationRoom(userId, roomId);
