@@ -34,4 +34,22 @@ public class UserDetailsResponse {
                 .image(user.getImage())
                 .build();
     }
+
+    @Getter
+    @NoArgsConstructor
+    public static class UserNameResponse {
+
+        private String name;
+
+        @Builder
+        private UserNameResponse(String name) {
+            this.name = name;
+        }
+
+        public static UserNameResponse toEntity(User user) {
+            return UserNameResponse.builder()
+                    .name(user.getName())
+                    .build();
+        }
+    }
 }

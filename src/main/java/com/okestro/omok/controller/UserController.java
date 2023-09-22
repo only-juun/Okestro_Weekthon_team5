@@ -2,6 +2,7 @@ package com.okestro.omok.controller;
 
 import com.okestro.omok.payload.request.CreateUserRequest;
 import com.okestro.omok.payload.response.UserDetailsResponse;
+import com.okestro.omok.payload.response.UserDetailsResponse.UserNameResponse;
 import com.okestro.omok.service.UserService;
 import jakarta.validation.Valid;
 import lombok.Getter;
@@ -24,6 +25,14 @@ public class UserController {
 
             return ResponseEntity
                     .ok(userService.createUser(createUserRequest,userId));
+    }
+
+    @GetMapping("/{userId}/name")
+        public ResponseEntity<UserNameResponse> findUserName(
+                @PathVariable(name = "userId") Long userId) {
+
+        return ResponseEntity
+                .ok(userService.findUserName(userId));
     }
 
     @PatchMapping("/{roomId}/participation")
