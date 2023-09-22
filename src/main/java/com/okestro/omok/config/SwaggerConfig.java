@@ -13,14 +13,14 @@ public class SwaggerConfig {
     public GroupedOpenApi publicApi() {
         return GroupedOpenApi.builder()
                 .group("v1-definition")
-                .pathsToMatch("/api/**")
+                .pathsToMatch("/**")
                 .build();
     }
     @Bean
     public OpenAPI springShopOpenAPI() {
         return new OpenAPI()
                 .info(new Info().title("Omok")
-                        .description("Omok.")
+                        .description("한끼오케 서비스의 API 명세서입니다.")
                         .version("1.0.0"));
     }
 }

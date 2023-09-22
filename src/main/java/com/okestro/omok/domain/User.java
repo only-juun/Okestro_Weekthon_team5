@@ -25,9 +25,6 @@ public class User extends BaseTime{
 
     private String image;
 
-    private String provider;
-    private String providerId;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "room_id")
     private Room room;
