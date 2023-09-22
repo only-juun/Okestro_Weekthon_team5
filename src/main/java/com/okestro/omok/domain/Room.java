@@ -67,4 +67,8 @@ public class Room extends BaseTime{
         this.users = users;
         this.deletedAt = deletedAt;
     }
+
+    public void setDeletedAt() {
+        this.deletedAt = LocalDateTime.now();
+    }
 }
