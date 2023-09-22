@@ -1,7 +1,11 @@
 package com.okestro.omok.controller;
 
+import com.okestro.omok.payload.request.CreateUserRequest;
+import com.okestro.omok.payload.response.UserDetailsResponse;
 import com.okestro.omok.service.LoginService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -12,7 +16,9 @@ public class LoginController {
     private final LoginService loginService;
 
     @GetMapping("/code/{registrationId}")
-    public void googleLogin(@RequestParam String code, @PathVariable String registrationId) {
-        loginService.socialLogin(code, registrationId);
+    public ResponseEntity<UserDetailsResponse> googleLogin(
+            @RequestParam String code, @PathVariable String registrationId) {
+        return
+                ResponseEntity.ok(loginService.socialLogin(code, registrationId));
     }
 }
