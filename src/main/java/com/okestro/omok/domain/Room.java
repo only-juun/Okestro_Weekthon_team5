@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,13 +43,17 @@ public class Room extends BaseTime{
     @Column(nullable = false)
     private LocalDateTime lunchTime;
 
+    private Double restaurantLatitude;
+
+    private Double restaurantLongitude;
+
     @OneToMany(mappedBy = "room")
     private List<User> users = new ArrayList<>();
 
     private LocalDateTime deletedAt;
 
     @Builder
-    private Room(Long id, String title, String description, String restaurantName, String restaurantLocation, String restaurantCategory, Integer limitedAttendees, LocalDateTime lunchTime, List<User> users, LocalDateTime deletedAt) {
+    private Room(Long id, String title, String description, String restaurantName, String restaurantLocation, String restaurantCategory, Integer limitedAttendees, LocalDateTime lunchTime, Double restaurantLatitude, Double restaurantLongitude, List<User> users, LocalDateTime deletedAt) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -57,6 +62,8 @@ public class Room extends BaseTime{
         this.restaurantCategory = restaurantCategory;
         this.limitedAttendees = limitedAttendees;
         this.lunchTime = lunchTime;
+        this.restaurantLatitude = restaurantLatitude;
+        this.restaurantLongitude = restaurantLongitude;
         this.users = users;
         this.deletedAt = deletedAt;
     }

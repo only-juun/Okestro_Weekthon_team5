@@ -40,6 +40,8 @@ public class RoomController {
                 .restaurantCategory(roomSaveRequestDto.getRestaurantCategory())
                 .lunchTime(roomSaveRequestDto.getLunchTime())
                 .limitedAttendees(roomSaveRequestDto.getLimitedAttendees())
+                .restaurantLatitude(roomSaveRequestDto.getRestaurantLatitude())
+                .restaurantLongitude(roomSaveRequestDto.getRestaurantLongitude())
                 .build();
 
         Long userId = roomSaveRequestDto.getUserId();

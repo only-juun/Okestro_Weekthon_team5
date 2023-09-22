@@ -6,6 +6,8 @@ import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 
@@ -22,8 +24,14 @@ public class RoomSaveRequestDto {
 
     @NotBlank(message = "음식점을 필수로 선택해주세요")
     private String restaurantName;
+
     private String restaurantLocation;
+
     private String restaurantCategory;
+
+    private Double restaurantLatitude;
+
+    private Double restaurantLongitude;
 
     private LocalDateTime lunchTime;
 

@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+
 @Getter
 @NoArgsConstructor
 public class RoomDetailsResponse {
@@ -21,14 +23,20 @@ public class RoomDetailsResponse {
 
     private String lunchTime;
 
+    private Double restaurantLatitude;
+
+    private Double restaurantLongitude;
+
     @Builder
-    private RoomDetailsResponse(String title, String description, String restaurantCategory, String restaurantName, String restaurantLocation, String lunchTime) {
+    private RoomDetailsResponse(String title, String description, String restaurantCategory, String restaurantName, String restaurantLocation, String lunchTime, Double restaurantLatitude, Double restaurantLongitude) {
         this.title = title;
         this.description = description;
         this.restaurantCategory = restaurantCategory;
         this.restaurantName = restaurantName;
         this.restaurantLocation = restaurantLocation;
         this.lunchTime = lunchTime;
+        this.restaurantLatitude = restaurantLatitude;
+        this.restaurantLongitude = restaurantLongitude;
     }
 
     public static RoomDetailsResponse toEntity(Room room) {
@@ -39,6 +47,8 @@ public class RoomDetailsResponse {
                 .restaurantName(room.getRestaurantName())
                 .restaurantLocation(room.getRestaurantLocation())
                 .lunchTime(String.valueOf(room.getLunchTime()))
+                .restaurantLongitude(room.getRestaurantLongitude())
+                .restaurantLatitude(room.getRestaurantLatitude())
                 .build();
     }
 }
