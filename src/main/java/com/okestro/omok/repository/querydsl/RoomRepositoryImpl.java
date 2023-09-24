@@ -41,6 +41,7 @@ public class RoomRepositoryImpl implements RoomRepositoryCustom{
                 .where(qRoom.deletedAt.isNull())
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
+                .orderBy(qRoom.lunchTime.asc())
                 .fetch();
     }
 }
