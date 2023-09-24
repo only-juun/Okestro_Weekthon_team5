@@ -29,16 +29,16 @@ public class User extends BaseTime{
     @JoinColumn(name = "room_id")
     private Room room;
 
-    private String token;
+//    private String token;
 
     @Builder
-    public User(Long id, String name, String email, String image, Room room, String token) {
+    public User(Long id, String name, String email, String image, Room room) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.image = image;
         this.room = room;
-        this.token = token;
+//        this.token = token;
     }
 
     public static User toEntity(CreateUserRequest createUserRequest) {

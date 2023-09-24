@@ -4,12 +4,17 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.okestro.omok.domain.User;
 import com.okestro.omok.exception.ClientException;
 import com.okestro.omok.exception.ErrorCode;
+import com.okestro.omok.jwt.JwtTokenProvider;
+import com.okestro.omok.payload.dto.TokenInfo;
 import com.okestro.omok.payload.request.CreateUserRequest;
 import com.okestro.omok.payload.response.UserDetailsResponse;
 import com.okestro.omok.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.env.Environment;
 import org.springframework.http.*;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.LinkedMultiValueMap;
@@ -26,6 +31,10 @@ import java.util.regex.Pattern;
 public class LoginService {
 
     private final UserRepository userRepository;
+
+    private final JwtTokenProvider jwtTokenProvider;
+
+    private final AuthenticationManagerBuilder authenticationManagerBuilder;
 
     private final Environment env;
     private final RestTemplate restTemplate = new RestTemplate();
@@ -57,14 +66,39 @@ public class LoginService {
         // 이미 가입한 유저인 경우
         if(existUser.isPresent()) {
             User user = User.alreadyJoinUser(existUser.get());
-            return UserDetailsResponse.toEntity(user);
+            TokenInfo tokenInfo = login(email);
+            System.out.println("이메일 = " + email);
+            System.out.println("토큰 인포 = " + tokenInfo);
+            return UserDetailsResponse.toEntity(user, tokenInfo.getAccessToken());
         }
 
         User user = User.toEntity(createUserRequest);
 
         User saveUser = userRepository.save(user);
 
-        return UserDetailsResponse.toEntity(saveUser);
+        TokenInfo tokenInfo = login(email);
+        System.out.println("이메일 = " + email);
+        System.out.println("토큰 인포 = " + tokenInfo);
+
+        return UserDetailsResponse.toEntity(saveUser, tokenInfo.getAccessToken());
+    }
+
+    public TokenInfo login(String email) {
+
+        // Spring Security는 사용자 검증을 위해
+        // encoding된 password와 그렇지 않은 password를 비교
+
+        // 1. Login ID/PW 를 기반으로 Authentication 객체 생성
+        // 이때 authentication 는 인증 여부를 확인하는 authenticated 값이 false
+//        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(email, null);
+
+        // 2. 실제 검증 (사용자 비밀번호 체크)이 이루어지는 부분
+        // authenticate 매서드가 실행될 때 CustomUserDetailsService 에서 만든 loadUserByUsername 메서드가 실행
+//        Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
+
+        TokenInfo tokenInfo = jwtTokenProvider.generateToken(email);
+
+        return tokenInfo;
     }
 
     private String getAccessToken(String authorizationCode, String registrationId) {
@@ -87,7 +121,7 @@ public class LoginService {
 
         ResponseEntity<JsonNode> responseNode = restTemplate.exchange(tokenUri, HttpMethod.POST, entity, JsonNode.class);
         JsonNode accessTokenNode = responseNode.getBody();
-        System.out.println(accessTokenNode);
+        System.out.println("엑세스 토큰 노드 : " + accessTokenNode);
         return accessTokenNode.get("access_token").asText();
     }
 

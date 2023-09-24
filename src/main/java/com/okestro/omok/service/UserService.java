@@ -26,23 +26,23 @@ public class UserService {
     private final RoomRepository roomRepository;
 
 
-    @Transactional
-    public UserDetailsResponse createUser(CreateUserRequest createUserRequest, Long userId) {
-        EmailValidationUtil.validationEmail(createUserRequest.getEmail());
-
-        Optional<User> validUser = findValidEmailUser(createUserRequest.getEmail());
-
-        if(validUser.isPresent()) {
-            User user = User.alreadyJoinUser(validUser.get());
-            return UserDetailsResponse.toEntity(user);
-        }
-
-        User user = User.toEntity(createUserRequest);
-
-        User saveUser = userRepository.save(user);
-
-        return UserDetailsResponse.toEntity(saveUser);
-    }
+//    @Transactional
+//    public UserDetailsResponse createUser(CreateUserRequest createUserRequest, Long userId) {
+//        EmailValidationUtil.validationEmail(createUserRequest.getEmail());
+//
+//        Optional<User> validUser = findValidEmailUser(createUserRequest.getEmail());
+//
+//        if(validUser.isPresent()) {
+//            User user = User.alreadyJoinUser(validUser.get());
+//            return UserDetailsResponse.toEntity(user);
+//        }
+//
+//        User user = User.toEntity(createUserRequest);
+//
+//        User saveUser = userRepository.save(user);
+//
+//        return UserDetailsResponse.toEntity(saveUser);
+//    }
 
     private Optional<User> findValidEmailUser(String email) {
         return userRepository.findByEmail(email);

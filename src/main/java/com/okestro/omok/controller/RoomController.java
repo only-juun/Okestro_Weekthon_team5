@@ -32,7 +32,6 @@ public class RoomController {
      */
     @PostMapping
     public ResponseEntity<RoomIdResponse> register(
-            @RequestHeader("USER-ID") Long user,
             @Valid @RequestBody RoomSaveRequestDto roomSaveRequestDto) {
 
         Room room = Room.builder()
@@ -60,7 +59,6 @@ public class RoomController {
      */
     @GetMapping("/{roomId}/users")
     public ResponseEntity getUserList(
-            @RequestHeader("USER-ID") Long userId,
             @PathVariable("roomId") Long roomId) {
         return ResponseEntity.ok(roomService.getUserInfo(roomId));
     }
@@ -71,7 +69,6 @@ public class RoomController {
      */
     @GetMapping("/{userId}")
     public ResponseEntity getRoomDetail(
-            @RequestHeader("USER-ID") Long user,
             @PathVariable("userId") Long userId) {
         return ResponseEntity.ok(roomService.getRoomInfo(userId));
     }
@@ -79,7 +76,6 @@ public class RoomController {
 
     @GetMapping("/{roomId}/details")
     public ResponseEntity<RoomDetailsResponse> findRoomDetails(
-            @RequestHeader("USER-ID") Long userId,
             @PathVariable("roomId") Long roomId) {
 
         return ResponseEntity
@@ -88,7 +84,6 @@ public class RoomController {
 
     @GetMapping("/all")
     public ResponseEntity<List<RoomDetailsWithUsersResponse>> findAllRoom(
-            @RequestHeader("USER-ID") Long userId,
             @PageableDefault(size = 10, sort = "createAt", direction = Sort.Direction.DESC) Pageable pageable) {
 
         return ResponseEntity

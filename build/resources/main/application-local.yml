@@ -6,7 +6,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
-      ddl-auto: none
+      ddl-auto: create-drop
     show-sql: true
     open-in-view: false
     properties:
@@ -30,3 +30,6 @@ oauth2:
     redirect-uri: http://localhost:8080/login/oauth2/code/google
     token-uri: https://oauth2.googleapis.com/token
     resource-uri: https://www.googleapis.com/oauth2/v2/userinfo
+
+jwt:
+  secret: VlwEyVBsYt9V7zq57TejMnVUyzblYcfPQye08f7MGVA9XkHa
