@@ -19,19 +19,14 @@ public class UserDetailsResponse {
 
     private String image;
 
-    private String grantType;
     private String accessToken;
-    private String refreshToken;
-
     @Builder
-    private UserDetailsResponse(Long userId, String email, String name, String image, String grantType, String accessToken, String refreshToken) {
+    private UserDetailsResponse(Long userId, String email, String name, String image, String accessToken) {
         this.userId = userId;
         this.email = email;
         this.name = name;
         this.image = image;
-        this.grantType = grantType;
         this.accessToken = accessToken;
-        this.refreshToken = refreshToken;
     }
 
     public static UserDetailsResponse toEntity(User user, String accessToken) {
