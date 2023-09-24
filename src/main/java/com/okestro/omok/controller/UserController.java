@@ -18,14 +18,14 @@ public class UserController {
 
     private final UserService userService;
 
-    @PostMapping("/login")
-    public ResponseEntity<UserDetailsResponse> createUser(
-            @RequestHeader("USER-ID") Long userId,
-            @RequestBody @Valid CreateUserRequest createUserRequest) {
-
-            return ResponseEntity
-                    .ok(userService.createUser(createUserRequest,userId));
-    }
+//    @PostMapping("/login")
+//    public ResponseEntity<UserDetailsResponse> createUser(
+//            @RequestHeader("USER-ID") Long userId,
+//            @RequestBody @Valid CreateUserRequest createUserRequest) {
+//
+//            return ResponseEntity
+//                    .ok(userService.createUser(createUserRequest,userId));
+//    }
 
     @GetMapping("/{userId}/name")
         public ResponseEntity<UserNameResponse> findUserName(

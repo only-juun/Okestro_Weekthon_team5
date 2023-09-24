@@ -69,7 +69,7 @@ public class LoginService {
             TokenInfo tokenInfo = login(email);
             System.out.println("이메일 = " + email);
             System.out.println("토큰 인포 = " + tokenInfo);
-            return UserDetailsResponse.toEntity(user);
+            return UserDetailsResponse.toEntity(user, tokenInfo.getAccessToken());
         }
 
         User user = User.toEntity(createUserRequest);
@@ -80,7 +80,7 @@ public class LoginService {
         System.out.println("이메일 = " + email);
         System.out.println("토큰 인포 = " + tokenInfo);
 
-        return UserDetailsResponse.toEntity(saveUser);
+        return UserDetailsResponse.toEntity(saveUser, tokenInfo.getAccessToken());
     }
 
     public TokenInfo login(String email) {
