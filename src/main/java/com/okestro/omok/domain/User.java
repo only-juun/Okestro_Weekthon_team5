@@ -29,7 +29,6 @@ public class User extends BaseTime{
     @JoinColumn(name = "room_id")
     private Room room;
 
-//    private String token;
 
     @Builder
     public User(Long id, String name, String email, String image, Room room) {
@@ -38,7 +37,6 @@ public class User extends BaseTime{
         this.email = email;
         this.image = image;
         this.room = room;
-//        this.token = token;
     }
 
     public static User toEntity(CreateUserRequest createUserRequest) {
