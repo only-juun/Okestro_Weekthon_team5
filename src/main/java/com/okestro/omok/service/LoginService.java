@@ -38,6 +38,7 @@ public class LoginService {
 
     private final Environment env;
     private final RestTemplate restTemplate = new RestTemplate();
+
     public UserDetailsResponse socialLogin(String code, String registrationId) {
         System.out.println("Authorization code = " + code);
         System.out.println("registrationId = " + registrationId);

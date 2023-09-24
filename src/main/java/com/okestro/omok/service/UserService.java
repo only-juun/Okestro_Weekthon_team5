@@ -6,16 +6,16 @@ import com.okestro.omok.exception.ClientException;
 import com.okestro.omok.exception.ErrorCode;
 import com.okestro.omok.payload.request.CreateUserRequest;
 import com.okestro.omok.payload.response.UserDetailsResponse;
+import com.okestro.omok.payload.response.UserDetailsResponse.UserNameResponse;
 import com.okestro.omok.repository.RoomRepository;
 import com.okestro.omok.repository.UserRepository;
+import com.okestro.omok.util.EmailValidationUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 @Service
 @RequiredArgsConstructor
@@ -27,8 +27,8 @@ public class UserService {
 
 
     @Transactional
-    public UserDetailsResponse createUser(CreateUserRequest createUserRequest) {
-        isValidEmail(createUserRequest.getEmail());
+    public UserDetailsResponse createUser(CreateUserRequest createUserRequest, Long userId) {
+        EmailValidationUtil.validationEmail(createUserRequest.getEmail());
 
         Optional<User> validUser = findValidEmailUser(createUserRequest.getEmail());
 
@@ -44,49 +44,68 @@ public class UserService {
         return UserDetailsResponse.toEntity(saveUser);
     }
 
-    private void isValidEmail(String email) {
-        String pattern = "@okestro.com";
-
-        Pattern regex = Pattern.compile(pattern);
-
-        Matcher matcher = regex.matcher(email);
-
-        if(!matcher.find()) {
-            throw new ClientException(ErrorCode.INVALID_EMAIL);
-        }
-    }
-
     private Optional<User> findValidEmailUser(String email) {
         return userRepository.findByEmail(email);
     }
 
+
+    public UserNameResponse findUserName(Long userId) {
+        return UserNameResponse.toEntity(findUser(userId));
+    }
+
     @Transactional
-    public void participationRoom(Long userId, Long roomId) {
+    public void participationRoom(Long userId, Long participationRoomId) {
 
         User user = findUser(userId);
 
-        Room room = findRoom(roomId);
+        isSameRoomAsUser(user,participationRoomId);
 
-        List<User> rooms = findUsersWithRoom(room);
+        Room participationRoom = findParticipationRoom(participationRoomId);
 
-        if(isCurrentParticipant(rooms.size(), room.getLimitedAttendees())) {
-            user.setRoom(room);
-            return;
+        List<User> participationRooms = findUsersWithRoom(participationRoom);
+
+        validateRoomCapacity(participationRooms.size(), participationRoom.getLimitedAttendees());
+
+        List<User> exitRoomUsers = findUsersWithRoom(user.getRoom());
+
+        if(isRoomSizeValid(user, exitRoomUsers)) {
+            user.getRoom().setDeletedAt();
         }
 
-        throw new ClientException(ErrorCode.EXCEED_PARTICIPATION_ROOM);
+        user.setRoom(participationRoom);
     }
 
-    private boolean isCurrentParticipant(Integer current, Integer limitedAttendees) {
-        return current < limitedAttendees;
+    private Room findParticipationRoom(Long participationRoomId) {
+        Room participationRoom = findByDeletedAtIsNullRoom(participationRoomId);
+        List<User> participationRooms = findUsersWithRoom(participationRoom);
+
+        validateRoomCapacity(participationRooms.size(), participationRoom.getLimitedAttendees());
+
+        return participationRoom;
+    }
+
+    private boolean isRoomSizeValid(User user, List<User> exitRoomsUsers) {
+        return user.getRoom() != null && exitRoomsUsers.size() == 1;
+    }
+
+    private void isSameRoomAsUser(User user, Long participationRoomId) {
+        if (user.getRoom() != null && user.getRoom().getId().equals(participationRoomId)) {
+            throw new ClientException(ErrorCode.ALREADY_PARTICIPATION_ROOM);
+        }
+    }
+
+    private void validateRoomCapacity(Integer currentParticipationRoomUser, Integer limitedAttendees) {
+        if(limitedAttendees <= currentParticipationRoomUser && limitedAttendees != 1) {
+            throw new ClientException(ErrorCode.EXCEED_PARTICIPATION_ROOM);
+        }
     }
 
     private List<User> findUsersWithRoom(Room room) {
         return userRepository.findByRoom(room);
     }
 
-    private Room findRoom(Long roomId) {
-        return roomRepository.findById(roomId)
+    private Room findByDeletedAtIsNullRoom(Long roomId) {
+        return roomRepository.findByIdAndDeletedAtIsNull(roomId)
                 .orElseThrow(() -> new ClientException(ErrorCode.NOT_FOUND_ROOM));
     }
 

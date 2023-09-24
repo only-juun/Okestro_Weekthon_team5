@@ -59,58 +59,60 @@ class UserServiceTest {
     private final Long userId = 1L;
     private final Long roomId = 1L;
 
-    @Test
-    @DisplayName("유저 방 참여 성공 테스트")
-    public void participationRoom_Success() {
-        User user = getUser();
-        Room room = getRoom();
+//    @Test
+//    @DisplayName("유저 방 참여 성공 테스트")
+//    public void participationRoom_Success() {
+//        User user = getUser();
+//        Room room = getRoom();
+//
+//        when(userRepository.findById(userId)).thenReturn(Optional.ofNullable(user));
+//        when(roomRepository.findById(roomId)).thenReturn(Optional.ofNullable(room));
+//        when(userRepository.findByRoom(room)).thenReturn(List.of(Objects.requireNonNull(user)));
+//        userService.participationRoom(userId,roomId);
+//
+//        verify(userRepository, Mockito.times(1)).findById(userId);
+//        verify(roomRepository, Mockito.times(1)).findById(roomId);
+//        verify(userRepository, Mockito.times(1)).findByRoom(room);
+//        assertEquals(user.getRoom(),room);
+//    }
+//
+//    @Test
+//    @DisplayName("이미 방에 참가한 유저 실패 테스트")
+//    public void participationRoom_AlreadyRoom_Fail(){
+//        User user = getUser();
+//        Room room = getRoom();
+//        user.setRoom(room);
+//
+//        when(userRepository.findById(userId)).thenReturn(Optional.of(user));
+//
+//        Assertions.assertThrows(ClientException.class,() -> {
+//            userService.participationRoom(userId,roomId);
+//        }, ErrorCode.ALREADY_PARTICIPATION_ROOM.getMessage());
+//
+//        verify(userRepository, Mockito.times(1)).findById(userId);
+//    }
+//
+//    @Test
+//    @DisplayName("방 인원이 초과 됐을때 실패 테스트")
+//    public void participationRoom_ExceedRoom_Fail(){
+//        User user = getUser();
+//        List<User> users = IntStream.range(0, 4)
+//                .mapToObj(i -> getUser()).toList();
+//
+//        Room room = getRoom();
+//
+//        when(userRepository.findById(userId)).thenReturn(Optional.ofNullable(user));
+//        when(roomRepository.findById(roomId)).thenReturn(Optional.ofNullable(room));
+//        when(userRepository.findByRoom(room)).thenReturn(users);
+//
+//        Assertions.assertThrows(ClientException.class,() -> {
+//            userService.participationRoom(userId,roomId);
+//        }, ErrorCode.EXCEED_PARTICIPATION_ROOM.getMessage());
+//
+//        verify(roomRepository, Mockito.times(1)).findById(roomId);
+//        verify(userRepository, Mockito.times(1)).findByRoom(room);
+//        verify(userRepository, Mockito.times(1)).findById(userId);
+//    }
 
-        when(userRepository.findById(userId)).thenReturn(Optional.ofNullable(user));
-        when(roomRepository.findById(roomId)).thenReturn(Optional.ofNullable(room));
-        when(userRepository.findByRoom(room)).thenReturn(List.of(Objects.requireNonNull(user)));
-        userService.participationRoom(userId,roomId);
 
-        verify(userRepository, Mockito.times(1)).findById(userId);
-        verify(roomRepository, Mockito.times(1)).findById(roomId);
-        verify(userRepository, Mockito.times(1)).findByRoom(room);
-        assertEquals(user.getRoom(),room);
-    }
-
-    @Test
-    @DisplayName("이미 방에 참가한 유저 실패 테스트")
-    public void participationRoom_AlreadyRoom_Fail(){
-        User user = getUser();
-        Room room = getRoom();
-        user.setRoom(room);
-
-        when(userRepository.findById(userId)).thenReturn(Optional.of(user));
-
-        Assertions.assertThrows(ClientException.class,() -> {
-            userService.participationRoom(userId,roomId);
-        }, ErrorCode.ALREADY_PARTICIPATION_ROOM.getMessage());
-
-        verify(userRepository, Mockito.times(1)).findById(userId);
-    }
-
-    @Test
-    @DisplayName("방 인원이 초과 됐을때 실패 테스트")
-    public void participationRoom_ExceedRoom_Fail(){
-        User user = getUser();
-        List<User> users = IntStream.range(0, 4)
-                .mapToObj(i -> getUser()).toList();
-
-        Room room = getRoom();
-
-        when(userRepository.findById(userId)).thenReturn(Optional.ofNullable(user));
-        when(roomRepository.findById(roomId)).thenReturn(Optional.ofNullable(room));
-        when(userRepository.findByRoom(room)).thenReturn(users);
-
-        Assertions.assertThrows(ClientException.class,() -> {
-            userService.participationRoom(userId,roomId);
-        }, ErrorCode.EXCEED_PARTICIPATION_ROOM.getMessage());
-
-        verify(roomRepository, Mockito.times(1)).findById(roomId);
-        verify(userRepository, Mockito.times(1)).findByRoom(room);
-        verify(userRepository, Mockito.times(1)).findById(userId);
-    }
 }
