@@ -18,6 +18,7 @@ import java.security.Key;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -39,6 +40,12 @@ public class JwtTokenProvider {
 //                .map(GrantedAuthority::getAuthority)
 //                .collect(Collectors.joining(","));
 
+        Collection<? extends GrantedAuthority> defaultAuthorities = List.of(new SimpleGrantedAuthority("ROLE_USER"));
+
+        // 권한을 쉼표로 구분된 문자열로 변환
+        String authoritiesString = defaultAuthorities.stream()
+                .map(GrantedAuthority::getAuthority)
+                .collect(Collectors.joining(","));
 
         long now = new Date().getTime();
         //Access Token 생성
@@ -46,6 +53,7 @@ public class JwtTokenProvider {
         Date accessTokenExpiresIn = new Date(now + 86400000);
         String accessToken = Jwts.builder()
                 .setSubject(email)
+                .claim("auth", authoritiesString)
                 .setExpiration(accessTokenExpiresIn)
                 .signWith(key, SignatureAlgorithm.HS256)
                 .compact();
