@@ -14,7 +14,9 @@ public class EmailValidationUtil {
         Pattern regex = Pattern.compile(PATTERN);
         Matcher matcher = regex.matcher(email);
 
-        if (!matcher.find() ||  ".".equals(email.substring(8,9))) {
+        String[] splitEmail = email.split("@");
+
+        if (!matcher.find() || splitEmail.length != 2  || !".".equals(splitEmail[1].substring(7,8))) {
             throw new ClientException(ErrorCode.INVALID_EMAIL);
         }
     }
