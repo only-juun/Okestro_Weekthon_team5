@@ -17,27 +17,6 @@ public class UserController {
 
     private final UserService userService;
 
-
-//    @GetMapping("/{userId}/name")
-//        public ResponseEntity<UserNameResponse> findUserName(
-//                @PathVariable(name = "userId") Long userId) {
-//
-//        return ResponseEntity
-//                .ok(userService.findUserName(userId));
-//    }
-//
-//    @PatchMapping("/{roomId}/participation")
-//    public ResponseEntity<Object> participationRoom(
-//            @RequestHeader("USER-ID") Long userId,
-//            @PathVariable("roomId") Long roomId) {
-//
-//        userService.participationRoom(userId, roomId);
-//
-//        return ResponseEntity
-//                .status(HttpStatus.NO_CONTENT)
-//                .build();
-//    }
-
     @PostMapping("/login")
     public ResponseEntity<UserDetailsResponse> createUser(
             @RequestHeader("USER-ID") Long userId,
