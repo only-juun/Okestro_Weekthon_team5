@@ -12,7 +12,7 @@ public class SwaggerConfig {
     @Bean
     public GroupedOpenApi publicApi() {
         return GroupedOpenApi.builder()
-                .group("v1-definition")
+                .group("v1-api")
                 .pathsToMatch("/**")
                 .build();
     }
@@ -21,6 +21,6 @@ public class SwaggerConfig {
         return new OpenAPI()
                 .info(new Info().title("Omok")
                         .description("한끼오케 서비스의 API 명세서입니다.")
-                        .version("1.0.0"));
+                        .version("1.0.1"));
     }
 }
