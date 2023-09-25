@@ -5,7 +5,6 @@ import com.okestro.omok.domain.User;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.yaml.snakeyaml.extensions.compactnotation.PackageCompactConstructor;
 
 @NoArgsConstructor
 @Getter
@@ -19,25 +18,13 @@ public class UserDetailsResponse {
 
     private String image;
 
-    private String accessToken;
     @Builder
-    private UserDetailsResponse(Long userId, String email, String name, String image, String accessToken) {
+    private UserDetailsResponse(Long userId, String email, String name, String image) {
         this.userId = userId;
         this.email = email;
         this.name = name;
         this.image = image;
-        this.accessToken = accessToken;
     }
-
-//    public static UserDetailsResponse toEntity(User user, String accessToken) {
-//        return UserDetailsResponse.builder()
-//                .userId(user.getId())
-//                .email(user.getEmail())
-//                .name(user.getName())
-//                .image(user.getImage())
-//                .accessToken(accessToken)
-//                .build();
-//    }
 
     public static UserDetailsResponse toEntity(User user) {
         return UserDetailsResponse.builder()
