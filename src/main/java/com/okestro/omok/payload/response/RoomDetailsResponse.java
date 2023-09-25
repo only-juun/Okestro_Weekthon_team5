@@ -17,6 +17,8 @@ public class RoomDetailsResponse {
 
     private String restaurantCategory;
 
+    private String locationUrl;
+
     private String restaurantName;
 
     private String restaurantLocation;
@@ -27,11 +29,13 @@ public class RoomDetailsResponse {
 
     private Double restaurantLongitude;
 
+
     @Builder
-    private RoomDetailsResponse(String title, String description, String restaurantCategory, String restaurantName, String restaurantLocation, String lunchTime, Double restaurantLatitude, Double restaurantLongitude) {
+    private RoomDetailsResponse(String title, String description, String restaurantCategory, String locationUrl, String restaurantName, String restaurantLocation, String lunchTime, Double restaurantLatitude, Double restaurantLongitude) {
         this.title = title;
         this.description = description;
         this.restaurantCategory = restaurantCategory;
+        this.locationUrl = locationUrl;
         this.restaurantName = restaurantName;
         this.restaurantLocation = restaurantLocation;
         this.lunchTime = lunchTime;
@@ -45,6 +49,7 @@ public class RoomDetailsResponse {
                 .description(room.getDescription())
                 .restaurantCategory(room.getRestaurantCategory())
                 .restaurantName(room.getRestaurantName())
+                .locationUrl(room.getLocationUrl())
                 .restaurantLocation(room.getRestaurantLocation())
                 .lunchTime(String.valueOf(room.getLunchTime()))
                 .restaurantLongitude(room.getRestaurantLongitude())

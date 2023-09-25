@@ -47,13 +47,15 @@ public class Room extends BaseTime{
 
     private Double restaurantLongitude;
 
+    private String locationUrl;
+
     @OneToMany(mappedBy = "room")
     private List<User> users = new ArrayList<>();
 
     private LocalDateTime deletedAt;
 
     @Builder
-    private Room(Long id, String title, String description, String restaurantName, String restaurantLocation, String restaurantCategory, Integer limitedAttendees, LocalDateTime lunchTime, Double restaurantLatitude, Double restaurantLongitude, List<User> users, LocalDateTime deletedAt) {
+    private Room(Long id, String title, String description, String restaurantName, String restaurantLocation, String restaurantCategory, Integer limitedAttendees, LocalDateTime lunchTime, Double restaurantLatitude, Double restaurantLongitude, String locationUrl, List<User> users, LocalDateTime deletedAt) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -64,6 +66,7 @@ public class Room extends BaseTime{
         this.lunchTime = lunchTime;
         this.restaurantLatitude = restaurantLatitude;
         this.restaurantLongitude = restaurantLongitude;
+        this.locationUrl = locationUrl;
         this.users = users;
         this.deletedAt = deletedAt;
     }
