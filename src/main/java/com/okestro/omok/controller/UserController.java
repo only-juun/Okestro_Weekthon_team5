@@ -17,6 +17,14 @@ public class UserController {
 
     private final UserService userService;
 
+    @GetMapping("/{userId}/name")
+    public ResponseEntity<UserNameResponse> findUserName(
+            @PathVariable(name = "userId") Long userId) {
+
+        return ResponseEntity
+                .ok(userService.findUserName(userId));
+    }
+
     @PostMapping("/login")
     public ResponseEntity<UserDetailsResponse> createUser(
             @RequestHeader("USER-ID") Long userId,
