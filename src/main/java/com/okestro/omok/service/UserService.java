@@ -5,14 +5,18 @@ import com.okestro.omok.domain.User;
 import com.okestro.omok.exception.ClientException;
 import com.okestro.omok.exception.ErrorCode;
 import com.okestro.omok.payload.response.UserDetailsResponse.UserNameResponse;
+import com.okestro.omok.payload.request.CreateUserRequest;
+import com.okestro.omok.payload.response.UserDetailsResponse;
 import com.okestro.omok.repository.RoomRepository;
 import com.okestro.omok.repository.UserRepository;
+import com.okestro.omok.util.EmailValidationUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -26,6 +30,24 @@ public class UserService {
 
     public UserNameResponse findUserName(Long userId) {
         return UserNameResponse.toEntity(findUser(userId));
+    }
+
+    @Transactional
+    public UserDetailsResponse createUser(CreateUserRequest createUserRequest, Long userId) {
+        EmailValidationUtil.validationEmail(createUserRequest.getEmail());
+
+        Optional<User> validUser = findValidEmailUser(createUserRequest.getEmail());
+
+        if(validUser.isPresent()) {
+            User user = User.alreadyJoinUser(validUser.get());
+            return UserDetailsResponse.toEntity(user);
+        }
+
+        User user = User.toEntity(createUserRequest);
+
+        User saveUser = userRepository.save(user);
+
+        return UserDetailsResponse.toEntity(saveUser);
     }
 
     @Transactional
@@ -45,6 +67,10 @@ public class UserService {
         }
 
         user.setRoom(participationRoom);
+    }
+
+    private Optional<User> findValidEmailUser(String email) {
+        return userRepository.findByEmail(email);
     }
 
     private Room findParticipationRoom(Long participationRoomId) {

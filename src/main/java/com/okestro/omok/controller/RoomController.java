@@ -27,11 +27,9 @@ public class RoomController {
 
     private final RoomService roomService;
 
-    /**
-     * 방 등록
-     */
     @PostMapping
     public ResponseEntity<RoomIdResponse> register(
+            @RequestHeader("USER-ID") Long user,
             @Valid @RequestBody RoomSaveRequestDto roomSaveRequestDto) {
 
         Room room = Room.builder()
@@ -50,8 +48,6 @@ public class RoomController {
 
         return ResponseEntity
                 .ok(roomService.register(room, userId));
-
-
     }
 
     /**
@@ -59,6 +55,7 @@ public class RoomController {
      */
     @GetMapping("/{roomId}/users")
     public ResponseEntity getUserList(
+            @RequestHeader("USER-ID") Long userId,
             @PathVariable("roomId") Long roomId) {
         return ResponseEntity.ok(roomService.getUserInfo(roomId));
     }
@@ -69,6 +66,7 @@ public class RoomController {
      */
     @GetMapping("/{userId}")
     public ResponseEntity getRoomDetail(
+            @RequestHeader("USER-ID") Long user,
             @PathVariable("userId") Long userId) {
         return ResponseEntity.ok(roomService.getRoomInfo(userId));
     }
@@ -76,6 +74,7 @@ public class RoomController {
 
     @GetMapping("/{roomId}/details")
     public ResponseEntity<RoomDetailsResponse> findRoomDetails(
+            @RequestHeader("USER-ID") Long userId,
             @PathVariable("roomId") Long roomId) {
 
         return ResponseEntity
@@ -84,9 +83,74 @@ public class RoomController {
 
     @GetMapping("/all")
     public ResponseEntity<List<RoomDetailsWithUsersResponse>> findAllRoom(
-            @PageableDefault(size = 10) Pageable pageable) {
+            @RequestHeader("USER-ID") Long userId,
+            @PageableDefault(size = 10, sort = "createAt", direction = Sort.Direction.DESC) Pageable pageable) {
 
         return ResponseEntity
                 .ok(roomService.findAllRooms(pageable));
     }
+
+
+//    /**
+//     * 방 등록
+//     */
+//    @PostMapping
+//    public ResponseEntity<RoomIdResponse> register(
+//            @Valid @RequestBody RoomSaveRequestDto roomSaveRequestDto) {
+//
+//        Room room = Room.builder()
+//                .title(roomSaveRequestDto.getTitle())
+//                .description(roomSaveRequestDto.getDescription())
+//                .restaurantName(roomSaveRequestDto.getRestaurantName())
+//                .restaurantLocation(roomSaveRequestDto.getRestaurantLocation())
+//                .restaurantCategory(roomSaveRequestDto.getRestaurantCategory())
+//                .lunchTime(roomSaveRequestDto.getLunchTime())
+//                .limitedAttendees(roomSaveRequestDto.getLimitedAttendees())
+//                .restaurantLatitude(roomSaveRequestDto.getRestaurantLatitude())
+//                .restaurantLongitude(roomSaveRequestDto.getRestaurantLongitude())
+//                .build();
+//
+//        Long userId = roomSaveRequestDto.getUserId();
+//
+//        return ResponseEntity
+//                .ok(roomService.register(room, userId));
+//
+//
+//    }
+//
+//    /**
+//     * 방 참가자 목록 조회: 사용자 정보 필요
+//     */
+//    @GetMapping("/{roomId}/users")
+//    public ResponseEntity getUserList(
+//            @PathVariable("roomId") Long roomId) {
+//        return ResponseEntity.ok(roomService.getUserInfo(roomId));
+//    }
+//
+//
+//    /**
+//     * 참가 중인 방 상세 조회
+//     */
+//    @GetMapping("/{userId}")
+//    public ResponseEntity getRoomDetail(
+//            @PathVariable("userId") Long userId) {
+//        return ResponseEntity.ok(roomService.getRoomInfo(userId));
+//    }
+//
+//
+//    @GetMapping("/{roomId}/details")
+//    public ResponseEntity<RoomDetailsResponse> findRoomDetails(
+//            @PathVariable("roomId") Long roomId) {
+//
+//        return ResponseEntity
+//                .ok(roomService.findRoomDetails(roomId));
+//    }
+//
+//    @GetMapping("/all")
+//    public ResponseEntity<List<RoomDetailsWithUsersResponse>> findAllRoom(
+//            @PageableDefault(size = 10) Pageable pageable) {
+//
+//        return ResponseEntity
+//                .ok(roomService.findAllRooms(pageable));
+//    }
 }

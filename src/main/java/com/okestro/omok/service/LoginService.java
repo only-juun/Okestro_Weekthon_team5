@@ -39,49 +39,49 @@ public class LoginService {
     private final Environment env;
     private final RestTemplate restTemplate = new RestTemplate();
 
-    public UserDetailsResponse socialLogin(String code, String registrationId) {
-        System.out.println("Authorization code = " + code);
-        System.out.println("registrationId = " + registrationId);
-        String accessToken = getAccessToken(code, registrationId);
-        System.out.println("AccessToken = " + accessToken);
-
-        JsonNode userResourceNode = getUserResource(accessToken, registrationId);
-        System.out.println("userResourceNode = " + userResourceNode);
-
-        String id = userResourceNode.get("id").asText();
-        String email = userResourceNode.get("email").asText();
-        String name = userResourceNode.get("name").asText();
-        String image = userResourceNode.get("picture").asText();
-
-        System.out.println("id = " + id);
-        System.out.println("email = " + email);
-        System.out.println("nickname = " + name);
-
-        CreateUserRequest createUserRequest = new CreateUserRequest(email, name, image);
-
-        isValidEmail(email);
-
-        Optional<User> existUser = userRepository.findByEmail(email);
-
-        // 이미 가입한 유저인 경우
-        if(existUser.isPresent()) {
-            User user = User.alreadyJoinUser(existUser.get());
-            TokenInfo tokenInfo = login(email);
-            System.out.println("이메일 = " + email);
-            System.out.println("토큰 인포 = " + tokenInfo);
-            return UserDetailsResponse.toEntity(user, tokenInfo.getAccessToken());
-        }
-
-        User user = User.toEntity(createUserRequest);
-
-        User saveUser = userRepository.save(user);
-
-        TokenInfo tokenInfo = login(email);
-        System.out.println("이메일 = " + email);
-        System.out.println("토큰 인포 = " + tokenInfo);
-
-        return UserDetailsResponse.toEntity(saveUser, tokenInfo.getAccessToken());
-    }
+//    public UserDetailsResponse socialLogin(String code, String registrationId) {
+//        System.out.println("Authorization code = " + code);
+//        System.out.println("registrationId = " + registrationId);
+//        String accessToken = getAccessToken(code, registrationId);
+//        System.out.println("AccessToken = " + accessToken);
+//
+//        JsonNode userResourceNode = getUserResource(accessToken, registrationId);
+//        System.out.println("userResourceNode = " + userResourceNode);
+//
+//        String id = userResourceNode.get("id").asText();
+//        String email = userResourceNode.get("email").asText();
+//        String name = userResourceNode.get("name").asText();
+//        String image = userResourceNode.get("picture").asText();
+//
+//        System.out.println("id = " + id);
+//        System.out.println("email = " + email);
+//        System.out.println("nickname = " + name);
+//
+//        CreateUserRequest createUserRequest = new CreateUserRequest(email, name, image);
+//
+//        isValidEmail(email);
+//
+//        Optional<User> existUser = userRepository.findByEmail(email);
+//
+//        // 이미 가입한 유저인 경우
+//        if(existUser.isPresent()) {
+//            User user = User.alreadyJoinUser(existUser.get());
+//            TokenInfo tokenInfo = login(email);
+//            System.out.println("이메일 = " + email);
+//            System.out.println("토큰 인포 = " + tokenInfo);
+//            return UserDetailsResponse.toEntity(user, tokenInfo.getAccessToken());
+//        }
+//
+//        User user = User.toEntity(createUserRequest);
+//
+//        User saveUser = userRepository.save(user);
+//
+//        TokenInfo tokenInfo = login(email);
+//        System.out.println("이메일 = " + email);
+//        System.out.println("토큰 인포 = " + tokenInfo);
+//
+//        return UserDetailsResponse.toEntity(saveUser, tokenInfo.getAccessToken());
+//    }
 
     public TokenInfo login(String email) {
 
