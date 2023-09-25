@@ -29,13 +29,22 @@ public class UserDetailsResponse {
         this.accessToken = accessToken;
     }
 
-    public static UserDetailsResponse toEntity(User user, String accessToken) {
+//    public static UserDetailsResponse toEntity(User user, String accessToken) {
+//        return UserDetailsResponse.builder()
+//                .userId(user.getId())
+//                .email(user.getEmail())
+//                .name(user.getName())
+//                .image(user.getImage())
+//                .accessToken(accessToken)
+//                .build();
+//    }
+
+    public static UserDetailsResponse toEntity(User user) {
         return UserDetailsResponse.builder()
                 .userId(user.getId())
                 .email(user.getEmail())
                 .name(user.getName())
                 .image(user.getImage())
-                .accessToken(accessToken)
                 .build();
     }
 
