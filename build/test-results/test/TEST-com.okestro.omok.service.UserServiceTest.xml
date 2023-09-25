@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.okestro.omok.service.UserServiceTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2023-09-25T07:45:55" hostname="namhwanjun-ui-MacBookPro.local" time="0.158">
+  <properties/>
+  <testcase name="방 인원이 초과 됐을때 실패 테스트" classname="com.okestro.omok.service.UserServiceTest" time="0.148"/>
+  <testcase name="유저 방 참여 성공 테스트" classname="com.okestro.omok.service.UserServiceTest" time="0.003"/>
+  <testcase name="방 인원이 한명 남았을 때 방 삭제" classname="com.okestro.omok.service.UserServiceTest" time="0.002"/>
+  <testcase name="이미 방에 참가한 유저 실패 테스트" classname="com.okestro.omok.service.UserServiceTest" time="0.002"/>
+  <system-out><![CDATA[2023-09-25T16:45:55.754+09:00  INFO 39253 --- [    Test worker] com.okestro.omok.service.UserService     : 방 인원이 초과되었습니다.
+2023-09-25T16:45:55.765+09:00  INFO 39253 --- [    Test worker] com.okestro.omok.service.UserService     : 방이 삭제 되었습니다.
+2023-09-25T16:45:55.767+09:00  INFO 39253 --- [    Test worker] com.okestro.omok.service.UserService     : 이미 방에 참여 중입니다.
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
