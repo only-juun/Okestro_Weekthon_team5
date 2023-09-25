@@ -29,7 +29,9 @@ public class SecurityConfig {
                             "http://localhost:3000",
                             "http://localhost:5173",
                             "http://34.64.121.32:5173",
-                            "http://34.64.121.32:8080"
+                            "http://34.64.121.32:8080",
+//                            "http://34.64.121.32:3000",
+                            "http://34.64.121.32:80"
                     ));
                     configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
                     configuration.setAllowedHeaders(List.of("*"));
