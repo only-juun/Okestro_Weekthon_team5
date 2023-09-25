@@ -15,6 +15,7 @@ import com.okestro.omok.payload.response.RoomIdResponse;
 import com.okestro.omok.repository.RoomRepository;
 import com.okestro.omok.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,6 +27,7 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -42,6 +44,15 @@ public class RoomService {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("USER NOT FOUND"));
 
+
+        if(user.getRoom() != null) {
+            List<User> exitRoomUsers = findUsersWithRoom(user.getRoom());
+            if(isRoomSizeValid(exitRoomUsers)) {
+                log.info("방이 삭제 되었습니다.");
+                user.getRoom().setDeletedAt();
+            }
+        }
+
         // User에 Room 할당
         user.setRoom(room);
 
@@ -50,6 +61,16 @@ public class RoomService {
 
         return RoomIdResponse.toEntity(room);
     }
+
+
+    private List<User> findUsersWithRoom(Room room) {
+        return userRepository.findByRoom(room);
+    }
+
+    private boolean isRoomSizeValid(List<User> exitRoomsUsers) {
+        return exitRoomsUsers.size() == 1;
+    }
+
 
     public AttendeeInfoDto getUserInfo(Long roomId) {
         return new AttendeeInfoDto(roomRepository.findWithUserByIdAndDeletedAtIsNull(roomId)
