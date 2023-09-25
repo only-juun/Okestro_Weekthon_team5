@@ -8,6 +8,7 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
 import org.springframework.data.domain.Pageable;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class RoomRepositoryImpl implements RoomRepositoryCustom{
@@ -22,7 +23,7 @@ public class RoomRepositoryImpl implements RoomRepositoryCustom{
     }
 
     @Override
-    public List<RoomDetailsWithUsersDto> findDetailsWithUsers(Pageable pageable) {
+    public List<RoomDetailsWithUsersDto> findDetailsWithUsers(Pageable pageable, LocalDateTime today) {
         return jpaQueryFactory
                 .select(
                         new QRoomDetailsWithUsersDto(
@@ -38,9 +39,12 @@ public class RoomRepositoryImpl implements RoomRepositoryCustom{
                         )
                 ).from(qRoom)
                 .leftJoin(qRoom.users,qUser)
-                .where(qRoom.deletedAt.isNull())
+                .where(qRoom.deletedAt.isNull().and(qRoom.lunchTime.year().eq(today.getYear()))
+                        .and(qRoom.lunchTime.month().eq(today.getMonthValue()))
+                        .and(qRoom.lunchTime.dayOfMonth().eq(today.getDayOfMonth())))
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
+                .orderBy(qRoom.lunchTime.asc())
                 .fetch();
     }
 }

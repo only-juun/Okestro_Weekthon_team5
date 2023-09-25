@@ -19,7 +19,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.*;
+import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 @Service
@@ -70,8 +74,9 @@ public class RoomService {
     }
 
     public List<RoomDetailsWithUsersResponse> findAllRooms(Pageable pageable) {
+        LocalDateTime today = LocalDateTime.now();
 
-        List<RoomDetailsWithUsersDto> detailsWithUsers = roomRepository.findDetailsWithUsers(pageable);
+        List<RoomDetailsWithUsersDto> detailsWithUsers = roomRepository.findDetailsWithUsers(pageable, today);
 
         Map<Long, List<UserDetailsDto>> participantRoomInUserMap = preprocessUsersInRoom(detailsWithUsers);
 

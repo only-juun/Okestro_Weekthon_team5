@@ -84,7 +84,7 @@ public class RoomController {
 
     @GetMapping("/all")
     public ResponseEntity<List<RoomDetailsWithUsersResponse>> findAllRoom(
-            @PageableDefault(size = 10, sort = "createAt", direction = Sort.Direction.DESC) Pageable pageable) {
+            @PageableDefault(size = 10) Pageable pageable) {
 
         return ResponseEntity
                 .ok(roomService.findAllRooms(pageable));

@@ -1,9 +1,7 @@
 package com.okestro.omok.controller;
 
-import com.okestro.omok.payload.request.CreateUserRequest;
 import com.okestro.omok.payload.response.UserDetailsResponse;
 import com.okestro.omok.service.LoginService;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
