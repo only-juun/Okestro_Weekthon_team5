@@ -2,7 +2,6 @@ package com.okestro.omok.controller;
 
 
 import com.okestro.omok.domain.Room;
-import com.okestro.omok.payload.dto.RoomDetailsWithUsersDto;
 import com.okestro.omok.payload.request.RoomSaveRequestDto;
 import com.okestro.omok.payload.response.RoomDetailsResponse;
 import com.okestro.omok.payload.response.RoomDetailsWithUsersResponse;
@@ -13,7 +12,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,6 +37,7 @@ public class RoomController {
                 .restaurantLocation(roomSaveRequestDto.getRestaurantLocation())
                 .restaurantCategory(roomSaveRequestDto.getRestaurantCategory())
                 .lunchTime(roomSaveRequestDto.getLunchTime())
+                .locationUrl(roomSaveRequestDto.getLocationUrl())
                 .limitedAttendees(roomSaveRequestDto.getLimitedAttendees())
                 .restaurantLatitude(roomSaveRequestDto.getRestaurantLatitude())
                 .restaurantLongitude(roomSaveRequestDto.getRestaurantLongitude())
