@@ -3,6 +3,7 @@ package com.okestro.omok.config;
 import com.okestro.omok.jwt.JwtAuthenticationFilter;
 import com.okestro.omok.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -27,7 +28,8 @@ public class SecurityConfig {
                     configuration.setAllowedOrigins(List.of(
                             "http://localhost:3000",
                             "http://localhost:5173",
-                            "http://localhost:8080"
+                            "http://34.64.121.32:5173",
+                            "http://34.64.121.32:8080"
                     ));
                     configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
                     configuration.setAllowedHeaders(List.of("*"));
