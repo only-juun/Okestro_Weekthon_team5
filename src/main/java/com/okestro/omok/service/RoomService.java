@@ -62,7 +62,6 @@ public class RoomService {
         return RoomIdResponse.toEntity(room);
     }
 
-
     private List<User> findUsersWithRoom(Room room) {
         return userRepository.findByRoom(room);
     }

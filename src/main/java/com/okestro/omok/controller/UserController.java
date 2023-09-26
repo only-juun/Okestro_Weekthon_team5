@@ -45,4 +45,16 @@ public class UserController {
                 .status(HttpStatus.NO_CONTENT)
                 .build();
     }
+
+    @PatchMapping("/{roomId}/exit")
+    public ResponseEntity<Object> exitRoom(
+            @RequestHeader("USER-ID") Long userId,
+            @PathVariable("roomId") Long roomId) {
+        userService.exitRoom(userId, roomId);
+
+        return ResponseEntity
+                .status(HttpStatus.NO_CONTENT)
+                .build();
+    }
+
 }
