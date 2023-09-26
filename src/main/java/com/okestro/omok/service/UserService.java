@@ -69,6 +69,42 @@ public class UserService {
         user.setRoom(participationRoom);
     }
 
+    @Transactional
+    public void exitRoom(Long userId, Long exitRoomId) {
+        User user = findUser(userId);
+
+        if(user.getRoom() != null) {
+            Room userRoom = user.getRoom();
+
+            List<User> exitRoomsUsers = isExitUsersWithRoom(exitRoomId, userRoom);
+
+            if(isUserRoomSizeValid(exitRoomsUsers,userRoom)) {
+                log.info("방이 삭제 되었습니다.");
+                user.getRoom().setDeletedAt();
+            }
+
+            user.setDeletedRoom();
+            return;
+        }
+
+        throw new ClientException(ErrorCode.NO_PARTICIPATION_ROOM);
+
+    }
+
+    private boolean isUserRoomSizeValid(List<User> exitRoomsUsers,Room room) {
+        return exitRoomsUsers.size() == 1;
+    }
+
+    private List<User> isExitUsersWithRoom(Long exitRoomId, Room userRoom) {
+        if(exitRoomId.equals(userRoom.getId())) {
+            Room room = findRoom(exitRoomId);
+
+            return findUsersWithRoom(room);
+        }
+
+        throw new ClientException(ErrorCode.NO_PARTICIPATION_ROOM);
+    }
+
     private Optional<User> findValidEmailUser(String email) {
         return userRepository.findByEmail(email);
     }
@@ -112,5 +148,10 @@ public class UserService {
     private User findUser(Long userId) {
         return userRepository.findById(userId)
                 .orElseThrow(() -> new ClientException(ErrorCode.NOT_FOUND_USER));
+    }
+
+    private Room findRoom(Long roomId) {
+        return roomRepository.findByIdAndDeletedAtIsNull(roomId)
+                .orElseThrow(() -> new ClientException(ErrorCode.NOT_FOUND_ROOM));
     }
 }

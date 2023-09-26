@@ -60,4 +60,7 @@ public class User extends BaseTime{
         this.room = room;
     }
 
+    public void setDeletedRoom() {
+        this.room = null;
+    }
 }
