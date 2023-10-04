@@ -63,10 +63,10 @@ public class UserService {
 
         if(isRoomSizeValid(user, exitRoomUsers)) {
             log.info("방이 삭제 되었습니다.");
-            user.getRoom().setDeletedAt();
+            user.getRoom().markAsDeleted();
         }
 
-        user.setRoom(participationRoom);
+        user.assignRoom(participationRoom);
     }
 
     @Transactional
@@ -80,10 +80,10 @@ public class UserService {
 
             if(isUserRoomSizeValid(exitRoomsUsers,userRoom)) {
                 log.info("방이 삭제 되었습니다.");
-                user.getRoom().setDeletedAt();
+                user.getRoom().markAsDeleted();
             }
 
-            user.setDeletedRoom();
+            user.removeRoom();
             return;
         }
 

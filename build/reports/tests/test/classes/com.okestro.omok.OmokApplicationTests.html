@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=edge"/>
+<title>Test results - OmokApplicationTests</title>
+<link href="../css/base-style.css" rel="stylesheet" type="text/css"/>
+<link href="../css/style.css" rel="stylesheet" type="text/css"/>
+<script src="../js/report.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="content">
+<h1>OmokApplicationTests</h1>
+<div class="breadcrumbs">
+<a href="../index.html">all</a> &gt; 
+<a href="../packages/com.okestro.omok.html">com.okestro.omok</a> &gt; OmokApplicationTests</div>
+<div id="summary">
+<table>
+<tr>
+<td>
+<div class="summaryGroup">
+<table>
+<tr>
+<td>
+<div class="infoBox" id="tests">
+<div class="counter">1</div>
+<p>tests</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="failures">
+<div class="counter">0</div>
+<p>failures</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="ignored">
+<div class="counter">0</div>
+<p>ignored</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="duration">
+<div class="counter">0.250s</div>
+<p>duration</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</td>
+<td>
+<div class="infoBox success" id="successRate">
+<div class="percent">100%</div>
+<p>successful</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div id="tabs">
+<ul class="tabLinks">
+<li>
+<a href="#tab0">Tests</a>
+</li>
+<li>
+<a href="#tab1">Standard output</a>
+</li>
+</ul>
+<div id="tab0" class="tab">
+<h2>Tests</h2>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Duration</th>
+<th>Result</th>
+</tr>
+</thead>
+<tr>
+<td class="success">contextLoads()</td>
+<td class="success">0.250s</td>
+<td class="success">passed</td>
+</tr>
+</table>
+</div>
+<div id="tab1" class="tab">
+<h2>Standard output</h2>
+<span class="code">
+<pre>16:45:53.295 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.okestro.omok.OmokApplicationTests]: OmokApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+16:45:53.333 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.okestro.omok.OmokApplication for test class com.okestro.omok.OmokApplicationTests
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.1.3)
+
+2023-09-25T16:45:53.475+09:00  INFO 39253 --- [    Test worker] com.okestro.omok.OmokApplicationTests    : Starting OmokApplicationTests using Java 17.0.8.1 with PID 39253 (started by namhwanjun in /Users/namhwanjun/okestro-team5-backend)
+2023-09-25T16:45:53.475+09:00  INFO 39253 --- [    Test worker] com.okestro.omok.OmokApplicationTests    : The following 1 profile is active: &quot;dev&quot;
+2023-09-25T16:45:53.740+09:00  INFO 39253 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-09-25T16:45:53.769+09:00  INFO 39253 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 25 ms. Found 2 JPA repository interfaces.
+2023-09-25T16:45:53.945+09:00  INFO 39253 --- [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-09-25T16:45:53.960+09:00  INFO 39253 --- [    Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.2.7.Final
+2023-09-25T16:45:53.961+09:00  INFO 39253 --- [    Test worker] org.hibernate.cfg.Environment            : HHH000406: Using bytecode reflection optimizer
+2023-09-25T16:45:54.006+09:00  INFO 39253 --- [    Test worker] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2023-09-25T16:45:54.051+09:00  INFO 39253 --- [    Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-09-25T16:45:54.057+09:00  INFO 39253 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-09-25T16:45:54.137+09:00  INFO 39253 --- [    Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@4809c771
+2023-09-25T16:45:54.138+09:00  INFO 39253 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-09-25T16:45:54.240+09:00  INFO 39253 --- [    Test worker] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2023-09-25T16:45:54.490+09:00  INFO 39253 --- [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+Hibernate: 
+    alter table `user` 
+       drop 
+       foreign key `FKka86kdnug8uwmlylletgja0x0`
+Hibernate: 
+    drop table if exists `room`
+Hibernate: 
+    drop table if exists `user`
+Hibernate: 
+    create table `room` (
+        `limited_attendees` integer not null,
+        `restaurant_latitude` float(53),
+        `restaurant_longitude` float(53),
+        `created_at` datetime(6) not null,
+        `deleted_at` datetime(6),
+        `lunch_time` datetime(6) not null,
+        `modified_at` datetime(6) not null,
+        `room_id` bigint not null auto_increment,
+        `restaurant_category` varchar(30) not null,
+        `restaurant_name` varchar(60) not null,
+        `title` varchar(150) not null,
+        `description` varchar(255) not null,
+        `location_url` varchar(255),
+        `restaurant_location` varchar(255) not null,
+        primary key (`room_id`)
+    ) engine=InnoDB
+Hibernate: 
+    create table `user` (
+        `created_at` datetime(6) not null,
+        `modified_at` datetime(6) not null,
+        `room_id` bigint,
+        `user_id` bigint not null auto_increment,
+        `email` varchar(30),
+        `name` varchar(30),
+        `image` varchar(255),
+        primary key (`user_id`)
+    ) engine=InnoDB
+Hibernate: 
+    alter table `user` 
+       add constraint `FKka86kdnug8uwmlylletgja0x0` 
+       foreign key (`room_id`) 
+       references `room` (`room_id`)
+2023-09-25T16:45:54.651+09:00  INFO 39253 --- [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-09-25T16:45:55.211+09:00  WARN 39253 --- [    Test worker] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: bd2a0242-2134-4437-ba55-8bee26908541
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2023-09-25T16:45:55.255+09:00  INFO 39253 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@112f8f8f, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@4700064f, org.springframework.security.web.context.SecurityContextHolderFilter@318ca53a, org.springframework.security.web.header.HeaderWriterFilter@7f588bc6, org.springframework.web.filter.CorsFilter@11703cc8, org.springframework.security.web.authentication.logout.LogoutFilter@7bf3bf2e, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@72f91c91, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@5c04685, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@6fc84468, org.springframework.security.web.access.ExceptionTranslationFilter@763a72da]
+2023-09-25T16:45:55.351+09:00  INFO 39253 --- [    Test worker] com.okestro.omok.OmokApplicationTests    : Started OmokApplicationTests in 1.967 seconds (process running for 2.38)
+</pre>
+</span>
+</div>
+</div>
+<div id="footer">
+<p>
+<div>
+<label class="hidden" id="label-for-line-wrapping-toggle" for="line-wrapping-toggle">Wrap lines
+<input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
+</label>
+</div>Generated by 
+<a href="http://www.gradle.org">Gradle 8.2.1</a> at 2023. 9. 25. 오후 4:45:55</p>
+</div>
+</div>
+</body>
+</html>

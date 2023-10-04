@@ -17,6 +17,9 @@ public class UserController {
 
     private final UserService userService;
 
+    /**
+     * 사용자 정보 조회
+     */
     @GetMapping("/{userId}/name")
     public ResponseEntity<UserNameResponse> findUserName(
             @PathVariable(name = "userId") Long userId) {
@@ -25,6 +28,9 @@ public class UserController {
                 .ok(userService.findUserName(userId));
     }
 
+    /**
+     * 로그인
+     */
     @PostMapping("/login")
     public ResponseEntity<UserDetailsResponse> createUser(
             @RequestHeader("USER-ID") Long userId,
@@ -34,6 +40,9 @@ public class UserController {
                 .ok(userService.createUser(createUserRequest,userId));
     }
 
+    /**
+     * 방 참가
+     */
     @PatchMapping("/{roomId}/participation")
     public ResponseEntity<Object> participationRoom(
             @RequestHeader("USER-ID") Long userId,
@@ -46,6 +55,9 @@ public class UserController {
                 .build();
     }
 
+    /**
+     * 방 나가기
+     */
     @PatchMapping("/{roomId}/exit")
     public ResponseEntity<Object> exitRoom(
             @RequestHeader("USER-ID") Long userId,
