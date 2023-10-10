@@ -1,5 +1,6 @@
 package com.okestro.omok.payload.request;
 
+import com.okestro.omok.domain.Room;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -48,4 +49,19 @@ public class RoomSaveRequestDto {
 
     @NotNull
     private Long userId;
+
+    public Room toRoom() {
+        return Room.builder()
+                .title(this.title)
+                .description(this.description)
+                .restaurantName(this.restaurantName)
+                .restaurantLocation(this.restaurantLocation)
+                .restaurantCategory(this.restaurantCategory)
+                .lunchTime(this.lunchTime)
+                .locationUrl(this.locationUrl)
+                .limitedAttendees(this.limitedAttendees)
+                .restaurantLatitude(this.restaurantLatitude)
+                .restaurantLongitude(this.restaurantLongitude)
+                .build();
+    }
 }

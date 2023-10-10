@@ -53,14 +53,13 @@ public class User extends BaseTime{
                 .email(user.getEmail())
                 .image(user.getImage())
                 .build();
-
     }
 
-    public void setRoom(Room room) {
+    public void assignRoom(Room room) {
         this.room = room;
     }
 
-    public void setDeletedRoom() {
+    public void removeRoom() {
         this.room = null;
     }
 }

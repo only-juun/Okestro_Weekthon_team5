@@ -7,7 +7,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -71,7 +70,7 @@ public class Room extends BaseTime{
         this.deletedAt = deletedAt;
     }
 
-    public void setDeletedAt() {
+    public void markAsDeleted() {
         this.deletedAt = LocalDateTime.now();
     }
 }

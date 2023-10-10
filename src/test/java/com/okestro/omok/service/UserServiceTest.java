@@ -82,7 +82,7 @@ class UserServiceTest {
     public void participationRoom_AlreadyRoom_Fail(){
         User user = getUser();
         Room room = getRoom();
-        user.setRoom(room);
+        user.assignRoom(room);
 
         when(userRepository.findById(userId)).thenReturn(Optional.of(user));
 
@@ -132,7 +132,7 @@ class UserServiceTest {
                 .deletedAt(null)
                 .build();
 
-        user.setRoom(room);
+        user.assignRoom(room);
 
         when(userRepository.findById(userId)).thenReturn(Optional.of(user));
         when(roomRepository.findByIdAndDeletedAtIsNull(roomId)).thenReturn(Optional.ofNullable(room));

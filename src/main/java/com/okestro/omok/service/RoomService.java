@@ -9,6 +9,7 @@ import com.okestro.omok.payload.dto.AttendeeInfoDto;
 import com.okestro.omok.payload.dto.RoomDetailsWithUsersDto;
 import com.okestro.omok.payload.dto.RoomInfoDto;
 import com.okestro.omok.payload.dto.UserDetailsDto;
+import com.okestro.omok.payload.request.RoomSaveRequestDto;
 import com.okestro.omok.payload.response.RoomDetailsResponse;
 import com.okestro.omok.payload.response.RoomDetailsWithUsersResponse;
 import com.okestro.omok.payload.response.RoomIdResponse;
@@ -37,24 +38,27 @@ public class RoomService {
     private final UserRepository userRepository;
 
     @Transactional
-    public RoomIdResponse register(Room room, Long userId) {
+    public RoomIdResponse register(RoomSaveRequestDto roomSaveRequestDto) {
+
+        Room room = roomSaveRequestDto.toRoom();
+        Long userId = roomSaveRequestDto.getUserId();
+
         // Room 등록
         roomRepository.save(room);
 
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("USER NOT FOUND"));
-
+                .orElseThrow(() -> new ClientException(ErrorCode.NOT_FOUND_USER));
 
         if(user.getRoom() != null) {
             List<User> exitRoomUsers = findUsersWithRoom(user.getRoom());
             if(isRoomSizeValid(exitRoomUsers)) {
                 log.info("방이 삭제 되었습니다.");
-                user.getRoom().setDeletedAt();
+                user.getRoom().markAsDeleted();
             }
         }
 
         // User에 Room 할당
-        user.setRoom(room);
+        user.assignRoom(room);
 
         // User 저장
         userRepository.save(user);
@@ -73,15 +77,15 @@ public class RoomService {
 
     public AttendeeInfoDto getUserInfo(Long roomId) {
         return new AttendeeInfoDto(roomRepository.findWithUserByIdAndDeletedAtIsNull(roomId)
-                .orElseThrow(() -> new NoSuchElementException("ROOM NOT FOUND")));
+                .orElseThrow(() -> new ClientException(ErrorCode.NOT_FOUND_ROOM)));
     }
 
     public RoomInfoDto getRoomInfo(Long userId) {
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new IllegalArgumentException("User not found with id: " + userId));
+                .orElseThrow(() -> new ClientException(ErrorCode.NOT_FOUND_USER));
 
         Room room = roomRepository.findByIdAndDeletedAtIsNull(user.getRoom().getId())
-                .orElseThrow(() -> new IllegalArgumentException("Room not found with id: " + user.getRoom().getId()));
+                .orElseThrow(() -> new ClientException(ErrorCode.NOT_FOUND_ROOM));
 
         return new RoomInfoDto(room);
     }

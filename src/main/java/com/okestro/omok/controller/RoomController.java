@@ -2,6 +2,8 @@ package com.okestro.omok.controller;
 
 
 import com.okestro.omok.domain.Room;
+import com.okestro.omok.payload.dto.AttendeeInfoDto;
+import com.okestro.omok.payload.dto.RoomInfoDto;
 import com.okestro.omok.payload.request.RoomSaveRequestDto;
 import com.okestro.omok.payload.response.RoomDetailsResponse;
 import com.okestro.omok.payload.response.RoomDetailsWithUsersResponse;
@@ -25,52 +27,43 @@ public class RoomController {
 
     private final RoomService roomService;
 
+    /**
+     * 방 등록
+     */
     @PostMapping
     public ResponseEntity<RoomIdResponse> register(
             @RequestHeader("USER-ID") Long user,
             @Valid @RequestBody RoomSaveRequestDto roomSaveRequestDto) {
 
-        Room room = Room.builder()
-                .title(roomSaveRequestDto.getTitle())
-                .description(roomSaveRequestDto.getDescription())
-                .restaurantName(roomSaveRequestDto.getRestaurantName())
-                .restaurantLocation(roomSaveRequestDto.getRestaurantLocation())
-                .restaurantCategory(roomSaveRequestDto.getRestaurantCategory())
-                .lunchTime(roomSaveRequestDto.getLunchTime())
-                .locationUrl(roomSaveRequestDto.getLocationUrl())
-                .limitedAttendees(roomSaveRequestDto.getLimitedAttendees())
-                .restaurantLatitude(roomSaveRequestDto.getRestaurantLatitude())
-                .restaurantLongitude(roomSaveRequestDto.getRestaurantLongitude())
-                .build();
-
-        Long userId = roomSaveRequestDto.getUserId();
-
-        return ResponseEntity
-                .ok(roomService.register(room, userId));
+        return ResponseEntity.
+                ok(roomService.register(roomSaveRequestDto));
     }
 
     /**
      * 방 참가자 목록 조회: 사용자 정보 필요
      */
     @GetMapping("/{roomId}/users")
-    public ResponseEntity getUserList(
-            @RequestHeader("USER-ID") Long userId,
+    public ResponseEntity<AttendeeInfoDto> getUserList(
+            @RequestHeader("USER-ID") Long user,
             @PathVariable("roomId") Long roomId) {
-        return ResponseEntity.ok(roomService.getUserInfo(roomId));
+        return ResponseEntity.
+                ok(roomService.getUserInfo(roomId));
     }
-
 
     /**
-     * 참가 중인 방 상세 조회
+     * 메인 페이지 참가 중인 방 상세 조회
      */
     @GetMapping("/{userId}")
-    public ResponseEntity getRoomDetail(
+    public ResponseEntity<RoomInfoDto> getRoomDetail(
             @RequestHeader("USER-ID") Long user,
             @PathVariable("userId") Long userId) {
-        return ResponseEntity.ok(roomService.getRoomInfo(userId));
+        return ResponseEntity.
+                ok(roomService.getRoomInfo(userId));
     }
 
-
+    /**
+     * 방 상세 조회
+     */
     @GetMapping("/{roomId}/details")
     public ResponseEntity<RoomDetailsResponse> findRoomDetails(
             @RequestHeader("USER-ID") Long userId,
@@ -80,6 +73,9 @@ public class RoomController {
                 .ok(roomService.findRoomDetails(roomId));
     }
 
+    /**
+     * 전체 방 목록 조회
+     */
     @GetMapping("/all")
     public ResponseEntity<List<RoomDetailsWithUsersResponse>> findAllRoom(
             @RequestHeader("USER-ID") Long userId,

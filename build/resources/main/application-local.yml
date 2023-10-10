@@ -33,3 +33,6 @@ oauth2:
 
 jwt:
   secret: VlwEyVBsYt9V7zq57TejMnVUyzblYcfPQye08f7MGVA9XkHa
+
+server:
+  ip: 34.64.121.32
