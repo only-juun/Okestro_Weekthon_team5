@@ -71,17 +71,17 @@
 
 ## Architecture
 <div align="center">
-<p><img src="/images/architecture.png"></p>
+<p><img src="/images/architecture.jpeg"></p>
 </div>
 <br/>
 
 ## 부록
 ### DB 스키마
 ﻿<div align="center">
-<p><img src="/images/db_schemapng.png"></p>
+<p><img src="/images/erd.png"></p>
 </div>
 
 ### API Docs
 ﻿<div align="center">
-<p><img src="/images/api_docs.png"></p>
+<p><img src="/images/api-docs.png"></p>
 </div>
